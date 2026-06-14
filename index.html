@@ -1,0 +1,483 @@
+HTML
+￼
+￼
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectriConnect - Solusi Kelistrikan & Pengembangan Karir</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Animasi kustom untuk radar pencarian */
+        @keyframes radar-pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .radar-active { animation: radar-pulse 2s infinite ease-in-out; }
+
+        /* ========================================================== */
+        /* --- ARSITEKTUR ENGINE PEMILIHAN TEMA (TOTAL CLEAN BLOCK) --- */
+        /* ========================================================== */
+        body.light-theme {
+            background-color: #f8fafc; /* Canvas belakang super clean & cerah (Slate 50) */
+            color: #0f172a; /* text-slate-900 */
+        }
+        body.light-theme nav {
+            background-color: #ffffff !important;
+            border-color: #e2e8f0 !important;
+        }
+        
+        /* SOLUSI UTAMA: Paksa seluruh boks kontainer menjadi blok putih utuh */
+        body.light-theme #menu-order > div,
+        body.light-theme .bg-gradient-to-b,
+        body.light-theme .bg-gradient-to-br,
+        body.light-theme .bg-slate-900,
+        body.light-theme .bg-slate-950,
+        body.light-theme #bottom-navigation {
+            background-color: #ffffff !important;
+            background-image: none !important; /* Hancurkan gradient gelap bawaan dark-mode */
+            border-color: #e2e8f0 !important; /* Border tipis abu-abu profesional */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+        }
+
+        /* Supaya input field di dalam form tidak terlihat flat polos, kita beri background soft-gray */
+        body.light-theme input,
+        body.light-theme select,
+        body.light-theme textarea {
+            background-color: #f1f5f9 !important; /* bg-slate-100 */
+            border-color: #cbd5e1 !important; /* border-slate-300 */
+            color: #0f172a !important;
+        }
+        body.light-theme optgroup, body.light-theme option {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
+        /* Brand Logo warna kontras tinggi di mode cerah */
+        body.light-theme nav button.bg-gradient-to-r {
+            background: linear-gradient(to right, #1e40af, #0e7490);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* FIX UTAMA JUDUL: Paksa text warna gelap pekat solid di mode cerah (Anti-Hilang) */
+        body.light-theme h1.judul-utama {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: #0f172a !important;
+            color: #0f172a !important;
+        }
+        body.light-theme h2,
+        body.light-theme h3,
+        body.light-theme h4 {
+            color: #0f172a !important;
+        }
+
+        /* Peningkatan Kontras Teks Global (Anti-Samar) */
+        body.light-theme .text-slate-100,
+        body.light-theme .text-slate-200,
+        body.light-theme .text-slate-300 { color: #0f172a !important; }
+        body.light-theme .text-slate-400 { color: #334155 !important; } /* Dipergelap ke Slate 700 */
+        body.light-theme .text-slate-500 { color: #475569 !important; } /* Dipergelap ke Slate 600 */
+        body.light-theme form .text-white { color: #0f172a !important; }
+        body.light-theme .font-mono.text-slate-500 { color: #1e293b !important; background-color: #e2e8f0; }
+        
+        /* Navigasi Menu Aktif vs Tidak Aktif */
+        body.light-theme #nav-order, body.light-theme #nav-career, body.light-theme #nav-dashboard { color: #475569; }
+        body.light-theme #nav-order.text-blue-400, body.light-theme #nav-career.text-blue-400, body.light-theme #nav-dashboard.text-blue-400 { color: #1d4ed8 !important; }
+        body.light-theme #bottom-navigation button.text-slate-400 { color: #475569; }
+        body.light-theme #bottom-navigation button.text-blue-400 { color: #1d4ed8 !important; }
+
+        /* Saklar Switch Tema Mode Cerah */
+        body.light-theme #btn-tema { background-color: #f1f5f9 !important; border-color: #cbd5e1 !important; color: #0f172a !important; }
+
+        /* Banner Status & Notifikasi Dinamis (High Contrast) */
+        body.light-theme .bg-amber-950\/40 { background-color: #fef9c3 !important; border-color: #fef08a !important; }
+        body.light-theme .text-amber-400 { color: #78350f !important; } 
+        body.light-theme .bg-red-500\/10 { background-color: #fee2e2 !important; border-color: #fca5a5 !important; }
+        body.light-theme .text-red-400 { color: #b91c1c !important; } 
+        body.light-theme .bg-emerald-500\/10 { background-color: #d1fae5 !important; border-color: #a7f3d0 !important; }
+        body.light-theme .text-emerald-400 { color: #065f46 !important; } 
+
+        /* Optimasi Tampilan Ruang Chat */
+        body.light-theme #sub-chat .bg-slate-800 { background-color: #f1f5f9 !important; border-color: #e2e8f0 !important; }
+        body.light-theme #sub-chat .bg-slate-950 { background-color: #ffffff !important; }
+        body.light-theme #sub-chat .self-start.bg-slate-950 { background-color: #f1f5f9 !important; color: #0f172a !important; border-color: #e2e8f0 !important; }
+
+        /* Modifikasi Khusus Card Finansial Escrow di Dashboard */
+        body.light-theme .dashboard-escrow-card {
+            background: linear-gradient(to bottom right, #f0fdf4, #e0f2fe) !important;
+            border-color: #cbd5e1 !important;
+        }
+        body.light-theme .dashboard-escrow-card p { color: #0369a1 !important; }
+        body.light-theme .dashboard-escrow-card h3 { color: #0284c7 !important; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between transition-colors duration-300">
+
+    <nav class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 shadow-lg transition-colors duration-300">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <button onclick="pindahMenu('menu-order')" class="text-xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent cursor-pointer">
+                ⚡ ElectriConnect
+            </button>
+            <div class="flex items-center gap-4 text-xs sm:text-sm font-semibold">
+                <button id="nav-order" onclick="pindahMenu('menu-order')" class="text-blue-400 font-bold cursor-pointer">Cari Teknisi</button>
+                <button id="nav-career" onclick="pindahMenu('menu-career')" class="text-slate-400 hover:text-blue-400 cursor-pointer">Career Center</button>
+                <button id="nav-dashboard" onclick="pindahMenu('menu-dashboard')" class="text-slate-400 hover:text-blue-400 cursor-pointer">Dashboard</button>
+                
+                <button onclick="toggleTema()" class="p-2 rounded-xl bg-slate-950 border border-slate-800 hover:text-blue-400 cursor-pointer transition flex items-center justify-center text-slate-400" id="btn-tema" title="Ubah Tema Tampilan">
+                    <svg id="icon-tema" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto p-4 flex flex-col justify-center items-center my-6">
+
+        <div id="menu-order" class="w-full max-w-xl target-view space-y-4">
+            
+            <div id="sub-beranda" class="space-y-6 sub-view-target">
+                <div class="text-center space-y-3 px-4">
+                    <span class="inline-flex items-center gap-1.5 bg-blue-500/10 text-blue-400 text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-blue-500/20">
+                        ⚡ On-Demand Industrial & Residential Tech
+                    </span>
+                    <h1 class="judul-utama text-2xl sm:text-3xl font-black tracking-tight leading-tight bg-gradient-to-br from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                        Solusi Cepat Kelistrikan Industri & Rumah Tangga
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+                        Temukan teknisi profesional untuk <i>maintenance</i>, <i>troubleshooting</i>, perbaikan, hingga <i>overhaul</i> dalam hitungan menit.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-b from-slate-900 to-slate-900/90 rounded-3xl p-6 border border-slate-850 shadow-2xl space-y-4 relative overflow-hidden transition-colors duration-300">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300">Formulir Permintaan Layanan</h2>
+                        </div>
+
+                    <form onsubmit="prosesOrder(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Kategori Layanan</label>
+                            <select class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:ring-2 focus:ring-blue-500 transition" required>
+                                <option>Breakdown Maintenance (Alat Mati Total)</option>
+                                <option>Corrective Maintenance (Perbaikan Komponen)</option>
+                                <option>Predictive Maintenance (Pengecekan Berbasis Kondisi)</option>
+                                <option>Troubleshooting (Diagnosa Gangguan)</option>
+                                <option>Overhaul (Pembongkaran Menyeluruh)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Peralatan yang Bermasalah</label>
+                            <select class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:ring-2 focus:ring-blue-500 transition" required>
+                                <optgroup label="Industrial Equipment" class="bg-slate-950">
+                                    <option>Motor Listrik 3-Phase</option>
+                                    <option>Panel Listrik / MCC Panel</option>
+                                    <option>Transformer / Generator</option>
+                                    <option>VFD / Inverter / UPS</option>
+                                </optgroup>
+                                <optgroup label="Building & Residential" class="bg-slate-950">
+                                    <option>AC / HVAC System</option>
+                                    <option>Pompa Air / Water Heater</option>
+                                    <option>Instalasi Rumah / CCTV / Smart Home</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Deskripsi Kerusakan</label>
+                            <textarea rows="3" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:ring-2 focus:ring-blue-500 transition" placeholder="Contoh: Motor 3 phase tiba-tiba berhenti..." required>Motor 3 phase tiba-tiba berhenti. MCB tidak trip namun terdengar suara dengung saat dinyalakan.</textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Pilih Batas Deadline Pengerjaan</label>
+                            <select id="select-deadline" class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:ring-2 focus:ring-blue-500 transition" required>
+                                <option value="darurat">🚨 Darurat / Urgent (Kurang dari 12 Jam) - [Harga Pas]</option>
+                                <option value="prioritas">📅 Prioritas Tinggi (24 Jam) - [Bisa Nego]</option>
+                                <option value="normal">🕒 Fleksibel / Normal (1-3 Hari) - [Bisa Nego]</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold p-3.5 rounded-xl text-sm transition-all shadow-lg shadow-blue-600/20 cursor-pointer">
+                            Cek Estimasi & Cari Teknisi
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="sub-loading" class="hidden bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl text-center space-y-6 sub-view-target">
+                <div class="relative w-28 h-28 mx-auto flex items-center justify-center">
+                    <div class="absolute inset-0 rounded-full bg-blue-500/10 animate-ping"></div>
+                    <div class="absolute inset-4 rounded-full bg-cyan-500/20 radar-active"></div>
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-2xl font-bold shadow-xl">⚡</div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold tracking-tight">Menghubungkan ke Teknisi Kompeten...</h3>
+                    <p class="text-xs text-slate-400 mt-1">Menyaring kualifikasi keahlian khusus dan sertifikasi resmi BNSP.</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-left space-y-1 text-xs">
+                    <p class="text-blue-400 font-mono font-bold">ANALISIS AI ELECTRICONNECT:</p>
+                    <p class="text-slate-300">Indikasi kerusakan: <span class="text-yellow-400 font-semibold">Short Circuit Winding / Broken Bearing</span>.</p>
+                    <p class="text-emerald-400 font-bold mt-1">Rekomendasi Rentang Budget: Rp600.000 - Rp2.000.000</p>
+                </div>
+            </div>
+
+            <div id="sub-match" class="hidden bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-2xl space-y-5 sub-view-target">
+                <div class="text-center"><span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/20">Teknisi Spesialis Ditemukan!</span></div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-full flex items-center justify-center font-black text-white shadow-md">AS</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm">Andi Saputra</h4>
+                        <p class="text-xs text-slate-400">⭐ 4.9 (230 Pengerjaan) • Jarak 4.2 Km</p>
+                        <span class="text-[10px] bg-blue-950 text-blue-300 px-1.5 py-0.5 rounded font-mono border border-blue-800/60 mt-1 inline-block">Sertifikasi K3 & BNSP Utama</span>
+                    </div>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex justify-between items-center"><span class="text-xs text-slate-400">Penawaran Awal Teknisi:</span><span class="text-base font-black text-emerald-400">Rp1.200.000</span></div>
+                    <p class="text-xs text-slate-400 italic">"Saya siap melakukan pembongkaran dinamo dan pengecekan gulungan tembaga malam ini."</p>
+                </div>
+                <div id="container-aksi-nego" class="space-y-2"></div>
+            </div>
+
+            <div id="sub-pesanan" class="hidden bg-slate-900 rounded-3xl p-6 border border-slate-800 shadow-2xl space-y-4 sub-view-target">
+                <div class="border-b border-slate-800 pb-3"><h2 class="text-sm font-bold uppercase tracking-wider text-slate-300">Status Pesanan Aktif</h2></div>
+                <div id="konten-pesanan" class="space-y-4 py-10 text-center text-xs text-slate-500">
+                    <svg class="w-10 h-10 mx-auto text-slate-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m16.5 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 7.5m16.5 0V4.5A2.25 2.25 0 0017.25 2.25H6.75A2.25 2.25 0 004.5 4.5v3m11.25 5.625c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-1.125c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v1.125z" />
+                    </svg>
+                    <p class="text-slate-500">Belum ada pesanan aktif saat ini. Silakan buat permintaan layanan baru di menu Beranda.</p>
+                </div>
+            </div>
+
+            <div id="sub-chat" class="hidden bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[500px] sub-view-target">
+                <div class="p-4 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
+                    <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div><h3 class="font-bold text-sm">Andi Saputra (Teknisi)</h3></div>
+                    <span id="countdown-display" class="text-xs font-mono bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 hidden">Sisa Waktu Nego: 02:00</span>
+                </div>
+                <div class="bg-amber-950/40 border-b border-amber-900/50 p-3 text-center flex flex-col items-center justify-center gap-1">
+                    <p class="text-xs text-amber-400 font-bold tracking-wide">⚠️ STATUS: RUANG KOMUNIKASI SISTEM</p>
+                    <p class="text-[11px] text-slate-400 max-w-xs leading-tight">Dilarang membayar di luar sistem demi keamanan jaminan garansi kerja Anda.</p>
+                </div>
+                <div class="flex-1 p-4 space-y-3 overflow-y-auto text-xs flex flex-col justify-end bg-slate-950">
+                    <div class="bg-slate-950 p-3 rounded-2xl rounded-tl-none max-w-[80%] self-start border border-slate-800"><p class="text-slate-300">Halo, ada yang bisa saya bantu terkait kendala sistem kelistrikannya?</p></div>
+                    <div id="chat-stream-tawaran-user" class="hidden bg-blue-600 p-3 rounded-2xl rounded-tr-none max-w-[80%] self-end"><p class="text-white font-semibold">Mengirim penawaran tandingan...</p><p id="teks-tawaran-user" class="text-xs text-blue-100 mt-1"></p></div>
+                </div>
+                <div id="form-bidding-chat" class="p-3 bg-slate-950 border-t border-slate-800 space-y-3">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Nominal Tawar (Rp)</label><input id="input-harga-tawar" type="number" placeholder="Contoh: 1000000" class="w-full p-2 bg-slate-900 border border-slate-800 text-xs rounded-lg text-white"></div>
+                        <div><label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Batas Waktu Hubungi</label><select id="input-durasi-timer" class="w-full p-2 bg-slate-900 border border-slate-800 text-xs rounded-lg text-white"><option value="120">2 Menit (Simulasi Cepat)</option><option value="300">5 Menit</option><option value="600">10 Menit</option></select></div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="kirimTawaranHarga()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition cursor-pointer">Kirim Tawaran</button>
+                        <button id="btn-bypass-timeout" onclick="simulasiTimeoutGagal()" class="hidden bg-red-950 text-red-400 border border-red-900/50 hover:bg-red-900 hover:text-white text-[10px] px-2 rounded-lg transition cursor-pointer">Skip</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bottom-navigation" class="bg-slate-900 border border-slate-800 rounded-2xl p-2.5 flex justify-around items-center text-[11px] shadow-xl sticky bottom-4 transition-colors duration-300">
+                <button onclick="pindahSubMenu('sub-beranda')" id="btn-sub-beranda" class="flex flex-col items-center gap-1 text-blue-400 font-bold cursor-pointer transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M7.5 21h6" /></svg>
+                    <span>Beranda</span>
+                </button>
+                <button onclick="pindahSubMenu('sub-pesanan')" id="btn-sub-pesanan" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-400 cursor-pointer transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.03 0 1.9.693 2.166 1.638m-7.377 0A48.536 48.536 0 0112 3m0 0c-1.133.094-1.976 1.057-1.976 2.192V16.5a2.25 2.25 0 002 2.25h3.75" /></svg>
+                    <span>Pesanan</span>
+                </button>
+                <button onclick="pindahSubMenu('sub-chat')" id="btn-sub-chat" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-400 cursor-pointer transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a44.866 44.866 0 01-2.355 4.16c-.234.308.156.717.506.509a16.51 16.51 0 003.659-2.265c.617-.27 1.3-.279 1.918-.121a10.19 10.19 0 002.413.215z" /></svg>
+                    <span>Chat</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="menu-career" class="w-full max-w-2xl target-view hidden">
+            <div class="bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl text-center space-y-6 relative overflow-hidden transition-colors duration-300">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
+                <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Eksklusif: Program Inkubasi Talenta</span>
+                <div class="space-y-3 max-w-lg mx-auto">
+                    <h1 class="judul-utama text-2xl sm:text-3xl font-black tracking-tight leading-tight">Bingung Menentukan Arah Karir & Terjebak Quarter-Life Crisis?</h1>
+                    <p class="text-xl font-extrabold text-blue-400 italic">"Maybe You're an Electrician."</p>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">Masa depan cerah tidak melulu harus ditemukan di balik sekat meja kantor korporat.</p>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4 text-left pt-4">
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-slate-700 transition"><h3 class="font-bold text-sm text-white">Jalur A: Validasi</h3><button onclick="alert('Pendaftaran dibuka!')" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-2 px-3 rounded-xl transition cursor-pointer">Ikuti Tes Kompetensi</button></div>
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 hover:border-slate-700 transition"><h3 class="font-bold text-sm text-white">Jalur B: Akademi</h3><button onclick="alert('Kelas tersedia bulan depan.')" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-xl transition cursor-pointer">Ikuti Pelatihan</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-dashboard" class="w-full max-w-3xl target-view hidden">
+            <div class="space-y-6">
+                <div class="flex justify-between items-center"><h1 class="judul-utama text-xl font-black">Panel Kontrol Dashboard</h1><span class="text-xs font-mono bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-slate-400">Akun: Mitra Korporat</span></div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 md:col-span-2 space-y-4 transition-colors duration-300">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Status Lacak Pekerjaan Aktif</h3>
+                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <div><h4 class="text-sm font-bold text-white">Overhaul Motor 3-Phase</h4><p class="text-xs text-amber-400 mt-1 font-medium">⚡ Status: Menunggu Verifikasi Sistem Pembayaran</p></div>
+                            <span class="text-xs font-mono bg-slate-900 border border-slate-800 px-2.5 py-1 rounded text-slate-300">INV-998A2</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-escrow-card from-slate-900 to-blue-950 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between transition-all duration-300">
+                        <div><h3 class="text-[10px] font-bold uppercase tracking-wider text-blue-400">Platform Escrow Balance</h3><p class="text-2xl font-black mt-2 text-white">Rp1.200.000</p></div>
+                        <p class="text-[11px] text-slate-400 mt-4 leading-tight border-t border-slate-800 pt-3">Dana aman ditahan platform sampai pekerjaan dikonfirmasi selesai.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 border-t border-slate-800 p-4 text-center text-xs text-slate-500 transition-colors duration-300">
+        © 2026 ElectriConnect Inc. Platform On-Demand & Karir Berkelanjutan.
+    </footer>
+
+    <script>
+        let countdownInterval;
+
+        function toggleTema() {
+            const body = document.body;
+            const icon = document.getElementById('icon-tema');
+            
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21M4.22 4.22l1.59 1.59m12.38 12.38l1.59 1.59M3 12h2.25m13.5 0H21M4.22 19.78l1.59-1.59M18.14 5.86l1.59-1.59M12 7.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9z" />`;
+            } else {
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />`;
+            }
+        }
+
+        function pindahMenu(targetViewId) {
+            document.querySelectorAll('.target-view').forEach(view => view.classList.add('hidden'));
+            document.getElementById(targetViewId).classList.remove('hidden');
+            const navButtons = ['nav-order', 'nav-career', 'nav-dashboard'];
+            navButtons.forEach(id => {
+                const btn = document.getElementById(id);
+                if(id === 'nav-' + targetViewId.split('-')[1]) {
+                    btn.className = document.body.classList.contains('light-theme') ? "text-blue-700 font-bold cursor-pointer" : "text-blue-400 font-bold cursor-pointer";
+                } else {
+                    btn.className = "text-slate-400 hover:text-blue-400 cursor-pointer";
+                }
+            });
+        }
+
+        function pindahSubMenu(targetSubId) {
+            document.querySelectorAll('.sub-view-target').forEach(subView => subView.classList.add('hidden'));
+            document.getElementById(targetSubId).classList.remove('hidden');
+            const subButtons = ['btn-sub-beranda', 'btn-sub-pesanan', 'btn-sub-chat'];
+            subButtons.forEach(id => {
+                const btn = document.getElementById(id);
+                if (id === 'btn-' + targetSubId) {
+                    btn.classList.add('text-blue-400', 'font-bold');
+                    btn.classList.remove('text-slate-400', 'hover:text-blue-400');
+                } else {
+                    btn.classList.remove('text-blue-400', 'font-bold');
+                    btn.classList.add('text-slate-400', 'hover:text-blue-400');
+                }
+            });
+        }
+
+        function prosesOrder(event) {
+            event.preventDefault();
+            const deadlineValue = document.getElementById('select-deadline').value;
+            pindahSubMenu('sub-loading');
+            setTimeout(function() {
+                pindahSubMenu('sub-match');
+                const containerAksi = document.getElementById('container-aksi-nego');
+                if (deadlineValue === 'darurat') {
+                    // FIX ICON URGENT: Sekarang menggunakan icon Siren SVG animasi Megaphone, bukan kotak kosong
+                    containerAksi.innerHTML = `
+                        <div class="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-xl text-center text-xs font-semibold mb-2 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-red-500 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.68-.69-1.89-.69-2.58 0L4.75 18.85c-.38.38-.11 1.04.43 1.04h8.33c.54 0 .81-.65.43-1.04l-3.01-3.01zM12 2v3m0 0a4 4 0 100 8 4 4 0 000-8zm6.36 1.64l-2.12 2.12M3.64 18.36l2.12-2.12" />
+                            </svg>
+                            Mengingat status pengerjaan Darurat, tarif terkunci.
+                        </div>
+                        <button onclick="konfirmasiPesananPas()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-3 rounded-xl text-sm transition cursor-pointer">Terima & Amankan Dana (Harga Pas)</button>
+                    `;
+                } else {
+                    containerAksi.innerHTML = `
+                        <div class="grid grid-cols-2 gap-3 text-xs font-bold">
+                            <button onclick="konfirmasiPesananNego(1200000)" class="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-xl transition cursor-pointer text-center">Terima (Deal Rp1.200.000)</button>
+                            <button onclick="pindahSubMenu('sub-chat')" class="bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 p-3 rounded-xl transition cursor-pointer text-center">Tawar Harga & Chat</button>
+                        </div>
+                    `;
+                }
+            }, 3000);
+        }
+
+        function konfirmasiPesananPas() {
+            alert('Pesanan Terkonfirmasi! Dana dialihkan ke rekening jaminan Escrow.');
+            document.getElementById('konten-pesanan').innerHTML = `
+                <div class="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl space-y-2 text-left">
+                    <div class="flex justify-between items-center"><span class="font-bold text-xs uppercase tracking-wider">🚨 STATUS: LAYANAN DARURAT</span><span class="text-[10px] font-mono bg-red-950 px-2 py-0.5 rounded border border-red-900 animate-pulse text-red-400">LIVE TRACKING</span></div>
+                    <p class="text-xs text-slate-300">Teknisi <strong>Andi Saputra</strong> sedang mempersiapkan peralatan menuju lokasi Anda.</p>
+                </div>
+            `;
+            document.getElementById('countdown-display').classList.add('hidden');
+            document.getElementById('form-bidding-chat').innerHTML = `
+                <div class="flex gap-2 w-full">
+                    <input id="input-chat-biasa" type="text" placeholder="Ketik pesan ke Andi..." class="flex-1 p-2 bg-slate-900 border border-slate-800 text-xs rounded-lg text-white">
+                    <button onclick="alert('Pesan terkirim!')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 rounded-lg cursor-pointer">Kirim</button>
+                </div>
+            `;
+            pindahSubMenu('sub-beranda');
+        }
+
+        function konfirmasiPesananNego(harga) {
+            alert('Penawaran Diterima! Kontrak kerja disetujui pada harga Rp ' + harga.toLocaleString('id-ID'));
+            document.getElementById('konten-pesanan').innerHTML = `
+                <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl space-y-2 text-left">
+                    <h4 class="font-bold text-xs uppercase">✅ STATUS: PENGERJAAN DISETUJUI</h4>
+                    <p class="text-xs text-emerald-400 font-bold">Total Biaya Kesepakatan: Rp ${harga.toLocaleString('id-ID')}</p>
+                </div>
+            `;
+            pindahSubMenu('sub-beranda');
+        }
+
+        function kirimTawaranHarga() {
+            const nominal = document.getElementById('input-harga-tawar').value;
+            const durasiDetik = parseInt(document.getElementById('input-durasi-timer').value);
+            if (!nominal || nominal <= 0) { alert("Harap masukkan nominal penawaran."); return; }
+
+            document.getElementById('chat-stream-tawaran-user').classList.remove('hidden');
+            document.getElementById('teks-tawaran-user').innerText = "Saya menawarkan harga Rp " + parseInt(nominal).toLocaleString('id-ID');
+            
+            const displayTimer = document.getElementById('countdown-display');
+            displayTimer.classList.remove('hidden');
+            document.getElementById('btn-bypass-timeout').classList.remove('hidden');
+
+            let sisaWaktu = durasiDetik;
+            clearInterval(countdownInterval);
+            countdownInterval = setInterval(function() {
+                let menit = Math.floor(sisaWaktu / 60);
+                let detik = sisaWaktu % 60;
+                displayTimer.innerText = "Sisa Waktu Nego: " + (menit < 10 ? '0' : '') + menit + ":" + (detik < 10 ? '0' : '') + detik;
+                if (sisaWaktu <= 0) { clearInterval(countdownInterval); simulasiTimeoutGagal(); }
+                sisaWaktu--;
+            }, 1000);
+        }
+
+        function simulasiTimeoutGagal() {
+            clearInterval(countdownInterval);
+            alert("Durasi nego habis. Sistem otomatis mencarikan teknisi pengganti.");
+            document.getElementById('countdown-display').classList.add('hidden');
+            document.getElementById('btn-bypass-timeout').classList.add('hidden');
+            document.getElementById('chat-stream-tawaran-user').classList.add('hidden');
+            pindahSubMenu('sub-loading');
+            setTimeout(function() {
+                pindahSubMenu('sub-match');
+                document.getElementById('container-aksi-nego').innerHTML = `
+                    <div class="bg-blue-500/10 border border-blue-500/20 text-blue-400 p-3 rounded-xl text-center text-xs mb-2">Teknisi Pengganti: <strong>Budi Setiawan</strong></div>
+                    <button onclick="konfirmasiPesananNego(1150000)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-3 rounded-xl text-sm transition cursor-pointer">Terima Budi & Amankan Dana</button>
+                `;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

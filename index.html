@@ -24,13 +24,37 @@ HTML
   --text-main: #E8EFF8;
   --text-sub: #8FA3BB;
   --text-muted: #5A738A;
+  --shadow-soft: rgba(0,0,0,.3);
+  color-scheme: dark;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+html[data-theme="light"] {
+  --navy: #F4F7FB;
+  --navy-mid: #FFFFFF;
+  --navy-card: #FFFFFF;
+  --navy-border: #E1E8F1;
+  --text-main: #14212F;
+  --text-sub: #4B627A;
+  --text-muted: #7A8DA3;
+  --shadow-soft: rgba(20,40,70,.1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { overflow-x: hidden; }
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--navy);
   color: var(--text-main);
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  transition: background-color .3s ease, color .3s ease;
+}
+.card, .tech-card, .layanan-card, .materi-card, .metric-card, .test-option, .filter-pill, .pill, .form-input, #topnav, #mobile-menu, .btn-secondary {
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+img { max-width: 100%; display: block; }
+@media(max-width:767px){
+  body { font-size: 15px; }
 }
 .mono { font-family: 'JetBrains Mono', monospace; }
 ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -50,6 +74,59 @@ body {
 .nav-btn { padding: 8px 16px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border: none; background: transparent; color: var(--text-sub); transition: all .2s; }
 .nav-btn:hover { color: var(--text-main); background: var(--navy-card); }
 .nav-btn.active { color: var(--coral); background: rgba(255,90,56,.1); }
+
+/* HAMBURGER (mobile nav) */
+.hamburger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; padding: 8px;
+  border-radius: 10px; transition: background .2s;
+}
+.hamburger:active { background: var(--navy-card); }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text-main); border-radius: 2px; transition: transform .3s ease, opacity .3s ease; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+#mobile-menu {
+  position: fixed; top: 64px; left: 0; right: 0; z-index: 199;
+  background: var(--navy-mid); border-bottom: 1px solid var(--navy-border);
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height .35s ease, opacity .3s ease;
+  box-shadow: 0 12px 24px var(--shadow-soft);
+}
+#mobile-menu.open { max-height: 420px; opacity: 1; }
+#mobile-menu a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 24px; color: var(--text-sub); font-weight: 700; font-size: .88rem;
+  border-bottom: 1px solid var(--navy-border); text-decoration: none; transition: all .15s;
+}
+#mobile-menu a:active { background: var(--navy-card); color: var(--coral); }
+
+/* THEME TOGGLE */
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  cursor: pointer; font-size: 1.05rem; line-height: 1; flex-shrink: 0;
+  transition: all .2s;
+}
+.theme-toggle:hover { border-color: var(--coral); }
+.theme-toggle:active { transform: scale(.92); }
+.mobile-menu-theme {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 16px 24px; color: var(--text-sub); font-weight: 700; font-size: .88rem;
+  border-bottom: 1px solid var(--navy-border); cursor: pointer;
+}
+.mobile-menu-theme:active { background: var(--navy-card); }
+
+@media(max-width:767px){
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  #theme-toggle-mobile-top { display: flex !important; }
+}
+@media(min-width:768px){
+  #mobile-menu { display: none; }
+}
 
 /* LAYOUT */
 .page { display: none; }
@@ -258,6 +335,107 @@ body {
 .layanan-title { font-size: .9rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
 .layanan-desc { font-size: .73rem; color: var(--text-sub); line-height: 1.5; }
 .layanan-price { font-size: .78rem; font-weight: 800; color: var(--coral); margin-top: 10px; }
+
+/* ===== PILIH TEKNISI (WhatsApp Booking) ===== */
+.wa-green { color: #25D366; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.filter-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 100px; font-size: .78rem; font-weight: 700;
+  background: var(--navy-card); border: 1px solid var(--navy-border); color: var(--text-sub);
+  cursor: pointer; transition: all .2s; font-family: inherit;
+}
+.filter-pill:hover { border-color: var(--teal); color: var(--text-main); }
+.filter-pill.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+
+.tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media(max-width:900px){ .tech-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .tech-grid{ grid-template-columns: 1fr; } }
+.tech-card {
+  background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 18px;
+  padding: 20px; transition: all .2s; display: flex; flex-direction: column;
+}
+.tech-card:hover { border-color: var(--coral); transform: translateY(-3px); }
+.tech-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.tech-avatar {
+  width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.05rem; color: #fff;
+}
+.tech-name-row { flex: 1; min-width: 0; }
+.tech-name { font-size: .92rem; font-weight: 800; margin-bottom: 4px; }
+.tech-status {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .64rem; font-weight: 800; padding: 3px 9px; border-radius: 100px; text-transform: uppercase; letter-spacing: .03em;
+}
+.status-online { background: rgba(0,196,140,.14); color: var(--emerald); border: 1px solid rgba(0,196,140,.28); }
+.status-sibuk { background: rgba(245,166,35,.14); color: var(--amber); border: 1px solid rgba(245,166,35,.28); }
+.status-tersedia { background: rgba(0,194,184,.14); color: var(--teal); border: 1px solid rgba(0,194,184,.28); }
+.status-offline { background: rgba(255,77,77,.14); color: #FF6B6B; border: 1px solid rgba(255,77,77,.28); }
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.tech-role { font-size: .68rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; display: none; }
+.tech-spec { font-size: .78rem; color: var(--text-sub); line-height: 1.5; margin-bottom: 12px; min-height: 36px; }
+.tech-spec-label { display: none; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 6px; }
+.tech-meta-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--navy-border); }
+.tech-meta { display: flex; align-items: center; gap: 5px; font-size: .74rem; color: var(--text-sub); font-weight: 600; }
+.tech-meta .star { color: var(--amber); }
+.tech-meta .star-empty { color: var(--navy-border); }
+.tech-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; list-style: none; }
+.tech-tag { font-size: .62rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; background: rgba(0,194,184,.08); color: var(--teal); border: 1px solid rgba(0,194,184,.2); }
+
+/* MOBILE TECH CARD (per spec: circular photo, centered, bullet specialisasi) */
+@media(max-width:767px){
+  .tech-grid { grid-template-columns: 1fr; gap: 18px; }
+  .tech-card { align-items: center; text-align: center; padding: 24px 20px; }
+  .tech-card:active { transform: scale(.98); border-color: var(--coral); }
+  .tech-top { flex-direction: column; align-items: center; gap: 4px; margin-bottom: 10px; }
+  .tech-avatar { width: 84px; height: 84px; border-radius: 50%; font-size: 1.7rem; border: 3px solid var(--navy-border); }
+  .tech-name-row { text-align: center; width: 100%; }
+  .tech-name { font-size: 1.05rem; margin-bottom: 2px; }
+  .tech-role { display: block; }
+  .tech-status { margin: 6px 0 2px; }
+  .tech-spec { display: none; }
+  .tech-spec-label { display: block; text-align: left; width: 100%; }
+  .tech-tags { flex-direction: column; align-items: flex-start; width: 100%; gap: 4px; margin-bottom: 16px; }
+  .tech-tag { background: none; border: none; color: var(--text-sub); font-size: .82rem; font-weight: 600; padding: 2px 0; text-transform: none; letter-spacing: 0; }
+  .tech-tag::before { content: "• "; color: var(--teal); font-weight: 900; }
+  .tech-meta-row { width: 100%; justify-content: center; border-bottom: none; padding-bottom: 4px; margin-bottom: 16px; }
+  .tech-meta.stars { font-size: .95rem; }
+  .tech-meta.stars .rating-num { font-size: .8rem; color: var(--text-sub); margin-left: 4px; }
+}
+.btn-wa {
+  margin-top: auto;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, #25D366, #1DA851);
+  color: #fff; font-weight: 800; font-size: .8rem; padding: 11px 16px; border-radius: 12px;
+  cursor: pointer; font-family: inherit; border: none; transition: all .2s; text-decoration: none;
+  box-shadow: 0 8px 20px rgba(37,211,102,.28); width: 100%;
+}
+.btn-wa:hover { box-shadow: 0 12px 26px rgba(37,211,102,.42); transform: translateY(-1px); }
+.btn-wa:disabled { background: var(--navy-border); color: var(--text-muted); box-shadow: none; cursor: not-allowed; transform: none; }
+
+@media(max-width:767px){
+  .btn-primary, .btn-teal, .btn-emerald, .btn-secondary, .btn-wa, .filter-pill, .form-input {
+    min-height: 48px;
+  }
+  .btn-primary, .btn-teal, .btn-emerald { font-size: .95rem; }
+  .form-input { font-size: 1rem; padding: 13px 16px; }
+}
+@media(hover:none){
+  .btn-primary:active, .btn-teal:active, .btn-emerald:active, .btn-wa:active, .btn-secondary:active { transform: scale(.97); }
+}
+
+/* FLOATING CTA */
+#fab-cta {
+  position: fixed; bottom: 22px; right: 22px; z-index: 300;
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #25D366, #1DA851); color: #fff; font-weight: 800; font-size: .8rem;
+  padding: 14px 20px; border-radius: 100px; border: none; cursor: pointer; font-family: inherit;
+  box-shadow: 0 10px 30px rgba(37,211,102,.45); transition: all .2s;
+}
+#fab-cta:hover { transform: scale(1.05); box-shadow: 0 12px 34px rgba(37,211,102,.55); }
+@media(max-width:600px){ #fab-cta{ padding: 13px 18px; font-size: .78rem; bottom: 16px; right: 16px; min-height: 48px; } }
+@media(hover:none){ #fab-cta:active { transform: scale(.95); } }
 </style>
 </head>
 <body>
@@ -270,9 +448,23 @@ body {
       <button id="nav-order" class="nav-btn active" onclick="showPage('order')">🔧 Cari Layanan</button>
       <button id="nav-career" class="nav-btn" onclick="showPage('career')">🎓 Career Center</button>
       <button id="nav-dashboard" class="nav-btn" onclick="showPage('dashboard')">📊 Dashboard</button>
+      <button class="theme-toggle" id="theme-toggle-desktop" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap">🌙</button>
     </div>
+    <button class="theme-toggle" id="theme-toggle-mobile-top" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap" style="display:none;margin-right:4px">🌙</button>
+    <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Buka menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div id="mobile-menu">
+  <a href="#" onclick="mobileNav('home');return false;">🏠 Home</a>
+  <a href="#" onclick="mobileNav('layanan');return false;">🔧 Layanan</a>
+  <a href="#" onclick="mobileNav('teknisi');return false;">👷 Teknisi</a>
+  <a href="#" onclick="mobileNav('testimoni');return false;">⭐ Testimoni</a>
+  <a href="#" onclick="mobileNav('kontak');return false;">📞 Kontak</a>
+  <div class="mobile-menu-theme" onclick="toggleTheme()">
+    <span id="mobile-theme-label">🌙 Mode Gelap</span>
+    <span style="font-size:1.1rem" id="mobile-theme-icon">🌙</span>
+  </div>
+</div>
 
 <!-- ============================================================ -->
 <!-- PAGE: ORDER / CARI LAYANAN -->
@@ -297,7 +489,7 @@ body {
   <div class="content-wrap">
     <div id="sub-beranda" class="sub-view active">
       <!-- KATEGORI LAYANAN PILLS -->
-      <div style="margin-bottom:28px">
+      <div id="layanan" style="margin-bottom:28px">
         <div class="section-label">Kategori Layanan</div>
         <div class="pill-row" id="pill-kategori">
           <div class="pill active" onclick="pilihPill(this,'pill-kategori','select-kategori','Breakdown Maintenance (Alat Mati Total)')">
@@ -449,14 +641,15 @@ body {
                 <span class="badge badge-emerald">Online</span>
               </div>
               <div style="display:flex;align-items:center;gap:12px">
-                <div style="width:42px;height:42px;background:linear-gradient(135deg,#a855f7,#6366f1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">GA</div>
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,#a855f7,#6366f1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">GS</div>
                 <div style="flex:1">
-                  <div style="font-size:.85rem;font-weight:800">Gesang Aji Sukmanjaya</div>
+                  <div style="font-size:.85rem;font-weight:800">Gesang Sukman Jaya</div>
                   <div style="font-size:.7rem;color:var(--text-sub)">⭐ 4.7 · Desain Proyek & Gambar Teknik</div>
                 </div>
                 <span class="badge badge-amber">Sibuk</span>
               </div>
             </div>
+            <button onclick="document.getElementById('pilih-teknisi').scrollIntoView({behavior:'smooth'})" class="btn-secondary" style="width:100%;margin-top:16px;padding:10px;font-size:.78rem">💬 Lihat Semua &amp; Pesan via WhatsApp</button>
           </div>
         </div>
 
@@ -468,6 +661,10 @@ body {
               <span class="status-live"><span class="live-dot"></span>500+ Teknisi Aktif</span>
             </div>
             <form onsubmit="prosesOrder(event)">
+              <div style="margin-bottom:16px">
+                <label class="form-label">Nama Anda</label>
+                <input type="text" id="input-nama" class="form-input" placeholder="Nama lengkap" required>
+              </div>
               <div style="margin-bottom:16px">
                 <label class="form-label">Kategori Layanan</label>
                 <select id="select-kategori" class="form-input" required>
@@ -515,12 +712,12 @@ body {
               </div>
               <div style="margin-bottom:16px">
                 <label class="form-label">Deskripsi Pekerjaan / Kerusakan</label>
-                <textarea rows="3" class="form-input" placeholder="Jelaskan kondisi pekerjaan secara detail..." required>Motor 3 phase tiba-tiba berhenti. MCB tidak trip namun terdengar suara dengung saat dinyalakan.</textarea>
+                <textarea id="input-deskripsi" rows="3" class="form-input" placeholder="Jelaskan kondisi pekerjaan secara detail..." required>Motor 3 phase tiba-tiba berhenti. MCB tidak trip namun terdengar suara dengung saat dinyalakan.</textarea>
               </div>
               <div class="grid-2" style="margin-bottom:16px">
                 <div>
                   <label class="form-label">Lokasi</label>
-                  <input type="text" class="form-input" value="Jakarta Selatan" placeholder="Kota / Area">
+                  <input type="text" id="input-lokasi" class="form-input" value="Jakarta Selatan" placeholder="Kota / Area">
                 </div>
                 <div>
                   <label class="form-label">Deadline Pengerjaan</label>
@@ -534,6 +731,72 @@ body {
               <button type="submit" class="btn-primary">⚡ Cari Teknisi & Cek Estimasi</button>
             </form>
           </div>
+        </div>
+      </div>
+
+      <!-- ================================================ -->
+      <!-- PILIH TEKNISI & PESAN VIA WHATSAPP -->
+      <!-- ================================================ -->
+      <div id="pilih-teknisi" style="margin-top:36px">
+        <div class="section-label">Pilih Teknisi</div>
+        <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:6px">6 Teknisi Siap Membantu Anda</h2>
+        <p style="font-size:.85rem;color:var(--text-sub);margin-bottom:20px;max-width:600px">Bandingkan spesialisasi, rating, dan ketersediaan. Klik "Pesan Sekarang" untuk chat langsung via WhatsApp dengan teknisi pilihan Anda — tanpa perantara.</p>
+
+        <div class="filter-row" id="filter-row">
+          <button class="filter-pill active" data-filter="semua" onclick="filterTeknisi('semua', this)">Semua</button>
+          <button class="filter-pill" data-filter="instalasi" onclick="filterTeknisi('instalasi', this)">🔧 Instalasi</button>
+          <button class="filter-pill" data-filter="perbaikan" onclick="filterTeknisi('perbaikan', this)">⚡ Perbaikan</button>
+          <button class="filter-pill" data-filter="maintenance" onclick="filterTeknisi('maintenance', this)">🛠️ Maintenance</button>
+          <button class="filter-pill" data-filter="konsultasi" onclick="filterTeknisi('konsultasi', this)">💡 Konsultasi</button>
+        </div>
+
+        <div class="tech-grid" id="tech-grid"><!-- diisi oleh JS --></div>
+      </div>
+
+      <!-- ================================================ -->
+      <!-- TESTIMONI -->
+      <!-- ================================================ -->
+      <div id="testimoni" style="margin-top:36px">
+        <div class="section-label">Testimoni</div>
+        <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:16px">Apa Kata Pelanggan Kami</h2>
+        <div class="grid-3">
+          <div class="card" style="padding:20px">
+            <div style="color:var(--amber);font-size:.85rem;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+            <p style="font-size:.85rem;color:var(--text-sub);line-height:1.6;margin-bottom:14px">Panel listrik rumah saya bermasalah tengah malam, teknisi datang cepat dan langsung beres. Responnya gercep banget!</p>
+            <div style="font-size:.8rem;font-weight:800">Dian S.</div>
+            <div style="font-size:.7rem;color:var(--text-muted)">Jakarta Selatan</div>
+          </div>
+          <div class="card" style="padding:20px">
+            <div style="color:var(--amber);font-size:.85rem;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+            <p style="font-size:.85rem;color:var(--text-sub);line-height:1.6;margin-bottom:14px">Pemasangan panel surya rapi dan sesuai estimasi budget. Teknisinya juga jelasin detail tiap tahap pengerjaan.</p>
+            <div style="font-size:.8rem;font-weight:800">Reza P.</div>
+            <div style="font-size:.7rem;color:var(--text-muted)">Tangerang</div>
+          </div>
+          <div class="card" style="padding:20px">
+            <div style="color:var(--amber);font-size:.85rem;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+            <p style="font-size:.85rem;color:var(--text-sub);line-height:1.6;margin-bottom:14px">Maintenance motor 3-phase pabrik kami jadi lebih terjadwal. Booking via WhatsApp juga praktis, tanpa ribet.</p>
+            <div style="font-size:.8rem;font-weight:800">Pak Hendra</div>
+            <div style="font-size:.7rem;color:var(--text-muted)">Bekasi (Industri)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================ -->
+      <!-- KONTAK -->
+      <!-- ================================================ -->
+      <div id="kontak" style="margin-top:36px">
+        <div class="section-label">Kontak</div>
+        <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:16px">Hubungi Kami</h2>
+        <div class="card" style="padding:24px">
+          <div class="grid-3" style="margin-bottom:18px">
+            <div><div style="font-size:.68rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">📞 Telepon</div><div style="font-size:.85rem;font-weight:700">0812-9815-2320</div></div>
+            <div><div style="font-size:.68rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">✉️ Email</div><div style="font-size:.85rem;font-weight:700">cs@electriconnect.id</div></div>
+            <div><div style="font-size:.68rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">📍 Area Layanan</div><div style="font-size:.85rem;font-weight:700">Jabodetabek & Sekitarnya</div></div>
+          </div>
+          <button class="btn-wa" style="max-width:280px" onclick="window.open('https://wa.me/6281298152320?text=' + encodeURIComponent('Halo Admin ElectriConnect, saya ingin bertanya tentang layanan teknisi.'), '_blank')">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.3.38-.43.51-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.38-.24.64-.14.26.1 1.66.78 1.95.93.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+            Chat Admin via WhatsApp
+          </button>
         </div>
       </div>
 
@@ -1025,7 +1288,7 @@ body {
               <div style="font-size:.72rem;color:var(--text-sub)">Spesialis Maintenance & Service Darurat</div>
             </div>
           </div>
-          <button onclick="showPage('order');setTimeout(()=>showSubView('sub-chat','btn-chat'),100)" class="btn-secondary" style="width:100%;padding:10px;font-size:.8rem">Hubungi Lagi</button>
+          <button onclick="pesanTeknisi('aji')" class="btn-secondary" style="width:100%;padding:10px;font-size:.8rem">💬 Hubungi Lagi via WhatsApp</button>
         </div>
 
         <!-- LAYANAN STATS DASHBOARD -->
@@ -1189,7 +1452,7 @@ body {
           <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
             <div>
               <div style="font-size:.85rem;font-weight:700">Gambar Single-Line Diagram Panel Industri</div>
-              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Gesang Aji Sukmanjaya · Desain Proyek</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Gesang Sukman Jaya · Desain Proyek</div>
             </div>
             <div style="text-align:right">
               <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp1.500.000</div>
@@ -1208,8 +1471,145 @@ let countdownTimer;
 let carouselIdx = 0;
 const CAROUSEL_TOTAL = 4;
 
+// ================= DATA 6 TEKNISI (WhatsApp Booking) =================
+const TEKNISI = [
+  { id: 'gesang', nama: 'Gesang Sukman Jaya', phone: '6282139543671', spesialisasi: 'Desain Proyek & Gambar Teknik', kategori: ['konsultasi'], status: 'sibuk', rating: 4.7, pengalaman: '5+ tahun', inisial: 'GS', gradient: 'linear-gradient(135deg,#a855f7,#6366f1)', tags: ['Single Line Diagram','Desain Panel'] },
+  { id: 'kevin', nama: 'Kevin Romadhon', phone: '6281298152320', spesialisasi: 'Pemasangan Baru — Panel & Instalasi', kategori: ['instalasi'], status: 'online', rating: 4.9, pengalaman: '4 tahun', inisial: 'KR', gradient: 'linear-gradient(135deg,var(--coral),#ff9a38)', tags: ['Panel Baru','Instalasi Rumah'] },
+  { id: 'bambang', nama: 'Bambang Maulana', phone: '6289668988190', spesialisasi: 'Maintenance & Service — Panel Surya & Inverter Solar', kategori: ['maintenance','instalasi'], status: 'online', rating: 4.9, pengalaman: '6 tahun', inisial: 'BM', gradient: 'linear-gradient(135deg,#4CADFC,#7B219E)', tags: ['Panel Surya','Inverter'] },
+  { id: 'aditya', nama: 'Aditya Darmawan', phone: '6281413448823', spesialisasi: 'Maintenance & Service — Motor Listrik 3-Phase', kategori: ['maintenance','perbaikan'], status: 'online', rating: 4.9, pengalaman: '7 tahun', inisial: 'AD', gradient: 'linear-gradient(135deg,var(--teal),#FF8AAE)', tags: ['Motor 3-Phase','Panel/MCC'] },
+  { id: 'iqbal', nama: 'Iqbal Alghifari', phone: '628990389767', spesialisasi: 'Maintenance & Service — AC & HVAC', kategori: ['maintenance','perbaikan'], status: 'sibuk', rating: 4.9, pengalaman: '5 tahun', inisial: 'IA', gradient: 'linear-gradient(135deg,#55ECF7,#D6A936)', tags: ['AC/HVAC','Troubleshooting'] },
+  { id: 'aji', nama: 'Aji Radiansyah', phone: '6283878432484', spesialisasi: 'Maintenance & Service Darurat', kategori: ['perbaikan','maintenance'], status: 'online', rating: 4.8, pengalaman: '6 tahun', inisial: 'AR', gradient: 'linear-gradient(135deg,var(--teal),#0099d4)', tags: ['Darurat 24/7','Perbaikan Cepat'] }
+];
+const STATUS_LABEL = { online: 'Tersedia', sibuk: 'Sibuk', tersedia: 'Tersedia', offline: 'Offline' };
+const STATUS_EMOJI = { online: '🟢', sibuk: '🟡', tersedia: '🟢', offline: '🔴' };
+let orderData = { nama:'', alamat:'', layanan:'', tanggal:'', keterangan:'' };
+
+function renderStars(rating) {
+  const full = Math.round(rating);
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    html += i <= full ? '<span class="star">⭐</span>' : '<span class="star-empty">☆</span>';
+  }
+  return html;
+}
+
+function renderTeknisi(filter) {
+  filter = filter || 'semua';
+  const grid = document.getElementById('tech-grid');
+  const list = filter === 'semua' ? TEKNISI : TEKNISI.filter(t => t.kategori.includes(filter));
+  if (!grid) return;
+  if (list.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-muted);font-size:.85rem">Belum ada teknisi untuk kategori ini.</div>'; return; }
+  grid.innerHTML = list.map(t => `
+    <div class="tech-card">
+      <div class="tech-top">
+        <div class="tech-avatar" style="background:${t.gradient}">${t.inisial}</div>
+        <div class="tech-name-row">
+          <div class="tech-name">${t.nama}</div>
+          <div class="tech-role">Teknisi</div>
+          <span class="tech-status status-${t.status}"><span class="status-dot"></span>${STATUS_EMOJI[t.status] || ''} ${STATUS_LABEL[t.status]}</span>
+        </div>
+      </div>
+      <div class="tech-spec">${t.spesialisasi}</div>
+      <div class="tech-spec-label">Spesialisasi:</div>
+      <ul class="tech-tags">${t.tags.map(tag => `<li class="tech-tag">${tag}</li>`).join('')}</ul>
+      <div class="tech-meta-row">
+        <div class="tech-meta stars">${renderStars(t.rating)}<span class="rating-num">(${t.rating.toFixed(1)})</span></div>
+        <div class="tech-meta">🛠️ ${t.pengalaman}</div>
+      </div>
+      <button class="btn-wa" onclick="pesanTeknisi('${t.id}')">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.3.38-.43.51-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.38-.24.64-.14.26.1 1.66.78 1.95.93.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+        Pesan via WhatsApp
+      </button>
+    </div>
+  `).join('');
+}
+
+function filterTeknisi(filter, btn) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderTeknisi(filter);
+}
+
+function buildPesanWA(teknisi, data) {
+  data = data || {};
+  return "Halo Kak " + teknisi.nama + ",\n\n" +
+    "Saya ingin melakukan pemesanan layanan teknisi.\n\n" +
+    "Nama: " + (data.nama || '') + "\n" +
+    "Alamat: " + (data.alamat || '') + "\n" +
+    "Jenis layanan: " + (data.layanan || '') + "\n" +
+    "Tanggal pengerjaan: " + (data.tanggal || '') + "\n" +
+    "Keluhan/Keterangan: " + (data.keterangan || '') + "\n\n" +
+    "Mohon informasi lebih lanjut. Terima kasih.";
+}
+
+function pesanTeknisi(id, data) {
+  const teknisi = TEKNISI.find(t => t.id === id);
+  if (!teknisi) return;
+  const pesan = buildPesanWA(teknisi, data);
+  window.open('https://wa.me/' + teknisi.phone + '?text=' + encodeURIComponent(pesan), '_blank');
+}
+
+function goToTeknisi() {
+  showPage('order');
+  setTimeout(() => {
+    const el = document.getElementById('pilih-teknisi');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+
+// ---- LIGHT / DARK MODE ----
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const isLight = theme === 'light';
+  const icon = isLight ? '☀️' : '🌙';
+  const label = isLight ? '☀️ Mode Terang' : '🌙 Mode Gelap';
+  const dTop = document.getElementById('theme-toggle-desktop');
+  const mTop = document.getElementById('theme-toggle-mobile-top');
+  const mLabel = document.getElementById('mobile-theme-label');
+  const mIcon = document.getElementById('mobile-theme-icon');
+  if (dTop) dTop.textContent = icon;
+  if (mTop) mTop.textContent = icon;
+  if (mLabel) mLabel.textContent = label;
+  if (mIcon) mIcon.textContent = icon;
+  try { localStorage.setItem('ec-theme', theme); } catch(e) {}
+}
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  applyTheme(current === 'light' ? 'dark' : 'light');
+}
+(function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem('ec-theme'); } catch(e) {}
+  if (!saved) {
+    saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+  }
+  applyTheme(saved);
+})();
+
+// ---- MOBILE HAMBURGER MENU ----
+function toggleMobileMenu() {
+  document.getElementById('hamburger-btn').classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('hamburger-btn').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+function mobileNav(target) {
+  closeMobileMenu();
+  showPage('order');
+  showSubView('sub-beranda', 'btn-beranda');
+  setTimeout(() => {
+    if (target === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const ids = { layanan: 'layanan', teknisi: 'pilih-teknisi', testimoni: 'testimoni', kontak: 'kontak' };
+    const el = document.getElementById(ids[target]);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
 // ---- PAGE NAV ----
 function showPage(p) {
+  closeMobileMenu();
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
@@ -1246,6 +1646,14 @@ function pilihLayanan(el, nama) {
 function prosesOrder(e) {
   e.preventDefault();
   const d = document.getElementById('select-deadline').value;
+  const selKategori = document.getElementById('select-kategori');
+  orderData = {
+    nama: document.getElementById('input-nama').value.trim(),
+    alamat: document.getElementById('input-lokasi').value.trim(),
+    layanan: selKategori.options[selKategori.selectedIndex].text.trim(),
+    tanggal: document.getElementById('select-deadline').options[document.getElementById('select-deadline').selectedIndex].text.trim(),
+    keterangan: document.getElementById('input-deskripsi').value.trim()
+  };
   showSubView('sub-loading', null);
   setTimeout(() => {
     showSubView('sub-match', null);
@@ -1273,6 +1681,7 @@ function konfirmasiPas() {
       <p style="font-size:.85rem;color:var(--text-sub)">Teknisi <strong style="color:var(--text-main)">Aji Radiansyah</strong> sedang mempersiapkan peralatan menuju lokasi Anda.</p>
     </div>`;
   showSubView('sub-pesanan','btn-pesanan');
+  pesanTeknisi('aji', orderData);
 }
 
 function konfirmasiNego(harga) {
@@ -1282,6 +1691,7 @@ function konfirmasiNego(harga) {
       <p style="font-size:.9rem;font-weight:800;color:var(--emerald)">Total Biaya: Rp ${harga.toLocaleString('id-ID')}</p>
     </div>`;
   showSubView('sub-pesanan','btn-pesanan');
+  pesanTeknisi(harga === 1150000 ? 'iqbal' : 'aji', orderData);
 }
 
 function kirimTawaran() {
@@ -1567,6 +1977,14 @@ function carouselTo(i) { carouselIdx = i - 1; carouselMove(1); }
 
 // INIT
 pilihTes('dasar-listrik');
+renderTeknisi('semua');
 </script>
+
+<!-- FLOATING CTA: PILIH TEKNISI -->
+<button id="fab-cta" onclick="goToTeknisi()">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.3.38-.43.51-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.38-.24.64-.14.26.1 1.66.78 1.95.93.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+  Pilih Teknisi
+</button>
+
 </body>
 </html>

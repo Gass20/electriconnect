@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectriConnect – Solusi Kelistrikan & Pengembangan Karir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+:root {
+  --coral: #FF5A38;
+  --coral-light: #FF7A5C;
+  --coral-dark: #D94225;
+  --navy: #0D1B2A;
+  --navy-mid: #152236;
+  --navy-card: #1C2E45;
+  --navy-border: #243550;
+  --teal: #00C2B8;
+  --amber: #F5A623;
+  --emerald: #00C48C;
+  --text-main: #E8EFF8;
+  --text-sub: #8FA3BB;
+  --text-muted: #5A738A;
+  --shadow-soft: rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+html[data-theme="light"] {
+  --navy: #F4F7FB;
+  --navy-mid: #FFFFFF;
+  --navy-card: #FFFFFF;
+  --navy-border: #E1E8F1;
+  --text-main: #14212F;
+  --text-sub: #4B627A;
+  --text-muted: #7A8DA3;
+  --shadow-soft: rgba(20,40,70,.1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { overflow-x: hidden; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--navy);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  transition: background-color .3s ease, color .3s ease;
+}
+.card, .tech-card, .layanan-card, .materi-card, .metric-card, .test-option, .filter-pill, .pill, .form-input, #topnav, #mobile-menu, .btn-secondary {
+  transition: background-color .3s ease, border-color .3s ease, color .3s ease;
+}
+img { max-width: 100%; display: block; }
+@media(max-width:767px){
+  body { font-size: 15px; }
+}
+.mono { font-family: 'JetBrains Mono', monospace; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--navy-mid); }
+::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 4px; }
+
+/* NAV */
+#topnav {
+  background: rgba(13,27,42,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--navy-border);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-inner { max-width: 1400px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 1.2rem; font-weight: 900; background: linear-gradient(135deg, var(--coral), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
+.nav-links { display: flex; gap: 6px; align-items: center; }
+.nav-btn { padding: 8px 16px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border: none; background: transparent; color: var(--text-sub); transition: all .2s; }
+.nav-btn:hover { color: var(--text-main); background: var(--navy-card); }
+.nav-btn.active { color: var(--coral); background: rgba(255,90,56,.1); }
+
+/* HAMBURGER (mobile nav) */
+.hamburger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; padding: 8px;
+  border-radius: 10px; transition: background .2s;
+}
+.hamburger:active { background: var(--navy-card); }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text-main); border-radius: 2px; transition: transform .3s ease, opacity .3s ease; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+#mobile-menu {
+  position: fixed; top: 64px; left: 0; right: 0; z-index: 199;
+  background: var(--navy-mid); border-bottom: 1px solid var(--navy-border);
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height .35s ease, opacity .3s ease;
+  box-shadow: 0 12px 24px var(--shadow-soft);
+}
+#mobile-menu.open { max-height: 420px; opacity: 1; }
+#mobile-menu a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 24px; color: var(--text-sub); font-weight: 700; font-size: .88rem;
+  border-bottom: 1px solid var(--navy-border); text-decoration: none; transition: all .15s;
+}
+#mobile-menu a:active { background: var(--navy-card); color: var(--coral); }
+
+/* THEME TOGGLE */
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  cursor: pointer; font-size: 1.05rem; line-height: 1; flex-shrink: 0;
+  transition: all .2s;
+}
+.theme-toggle:hover { border-color: var(--coral); }
+.theme-toggle:active { transform: scale(.92); }
+.mobile-menu-theme {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 16px 24px; color: var(--text-sub); font-weight: 700; font-size: .88rem;
+  border-bottom: 1px solid var(--navy-border); cursor: pointer;
+}
+.mobile-menu-theme:active { background: var(--navy-card); }
+
+@media(max-width:767px){
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  #theme-toggle-mobile-top { display: flex !important; }
+}
+@media(min-width:768px){
+  #mobile-menu { display: none; }
+}
+
+/* LAYOUT */
+.page { display: none; }
+.page.active { display: block; }
+.content-wrap { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
+
+/* HERO SECTION */
+.hero-section {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, #0A1829 100%);
+  padding: 60px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(255,90,56,.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(0,194,184,.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,90,56,.12); border: 1px solid rgba(255,90,56,.25);
+  color: var(--coral-light); font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+}
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1;
+  background: linear-gradient(135deg, #fff 0%, var(--text-main) 60%, var(--text-sub) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+.hero-sub { color: var(--text-sub); font-size: .95rem; max-width: 600px; margin: 0 auto 36px; line-height: 1.6; }
+.hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.stat-item { text-align: center; }
+.stat-num { font-size: 1.8rem; font-weight: 900; color: var(--coral); }
+.stat-label { font-size: .7rem; color: var(--text-sub); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+
+/* TABS / PILLS */
+.section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); margin-bottom: 10px; }
+.pill-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.pill-row::-webkit-scrollbar { display: none; }
+.pill {
+  flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 10px 14px; border-radius: 14px;
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  cursor: pointer; transition: all .2s;
+}
+.pill:hover { border-color: var(--coral); }
+.pill.active { background: rgba(255,90,56,.15); border-color: var(--coral); }
+.pill-icon { font-size: 1.4rem; }
+.pill-text { font-size: .68rem; font-weight: 700; color: var(--text-sub); white-space: nowrap; }
+.pill.active .pill-text { color: var(--coral); }
+
+/* CARDS */
+.card {
+  background: var(--navy-card);
+  border: 1px solid var(--navy-border);
+  border-radius: 20px;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--navy-border); }
+.card-header { padding: 20px 24px 0; }
+.card-body { padding: 20px 24px 24px; }
+
+/* FORM ELEMENTS */
+.form-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-sub); display: block; margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 12px 16px;
+  background: var(--navy-mid); border: 1px solid var(--navy-border);
+  border-radius: 12px; color: var(--text-main); font-family: inherit; font-size: .9rem;
+  transition: border-color .2s; outline: none;
+}
+.form-input:focus { border-color: var(--coral); }
+.form-input option, .form-input optgroup { background: var(--navy-mid); }
+
+/* BUTTONS */
+.btn-primary {
+  background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+  color: #fff; font-weight: 800; padding: 14px 28px; border-radius: 14px;
+  border: none; cursor: pointer; font-family: inherit; font-size: .9rem;
+  box-shadow: 0 8px 24px rgba(255,90,56,.3); transition: all .2s; width: 100%;
+}
+.btn-primary:hover { box-shadow: 0 12px 32px rgba(255,90,56,.45); transform: translateY(-1px); }
+.btn-secondary {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  color: var(--teal); font-weight: 700; padding: 12px 24px; border-radius: 12px;
+  cursor: pointer; font-family: inherit; font-size: .85rem; transition: all .2s;
+}
+.btn-secondary:hover { border-color: var(--teal); }
+.btn-teal {
+  background: linear-gradient(135deg, var(--teal), #009F96);
+  color: #fff; font-weight: 800; padding: 14px 28px; border-radius: 14px;
+  border: none; cursor: pointer; font-family: inherit; font-size: .9rem;
+  box-shadow: 0 8px 24px rgba(0,194,184,.3); transition: all .2s; width: 100%;
+}
+.btn-teal:hover { box-shadow: 0 12px 32px rgba(0,194,184,.45); transform: translateY(-1px); }
+.btn-emerald {
+  background: linear-gradient(135deg, var(--emerald), #00A577);
+  color: #fff; font-weight: 800; padding: 14px 28px; border-radius: 14px;
+  border: none; cursor: pointer; font-family: inherit; font-size: .9rem;
+  box-shadow: 0 8px 24px rgba(0,196,140,.3); transition: all .2s; width: 100%;
+}
+
+/* GRID LAYOUTS */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.grid-2-3 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+@media(max-width:900px){ .grid-3{grid-template-columns:repeat(2,1fr);} .grid-4{grid-template-columns:repeat(2,1fr);} .grid-2-3{grid-template-columns:1fr;} .grid-1-2{grid-template-columns:1fr;} }
+@media(max-width:600px){ .grid-2{grid-template-columns:1fr;} .grid-3{grid-template-columns:1fr;} }
+
+/* BADGES */
+.badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+.badge-coral { background: rgba(255,90,56,.15); color: var(--coral); border: 1px solid rgba(255,90,56,.25); }
+.badge-teal { background: rgba(0,194,184,.12); color: var(--teal); border: 1px solid rgba(0,194,184,.25); }
+.badge-amber { background: rgba(245,166,35,.12); color: var(--amber); border: 1px solid rgba(245,166,35,.25); }
+.badge-emerald { background: rgba(0,196,140,.12); color: var(--emerald); border: 1px solid rgba(0,196,140,.25); }
+.badge-blue { background: rgba(59,130,246,.12); color: #60a5fa; border: 1px solid rgba(59,130,246,.25); }
+
+/* STATUS CARDS */
+.status-live {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--emerald); background: rgba(0,196,140,.1); border: 1px solid rgba(0,196,140,.25);
+  padding: 4px 12px; border-radius: 100px;
+}
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* LOADING RADAR */
+@keyframes radarPing { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2.2);opacity:0} }
+@keyframes radarSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+.radar-ring { animation: radarPing 1.8s ease-out infinite; }
+.radar-ring-2 { animation: radarPing 1.8s ease-out infinite .6s; }
+.radar-ring-3 { animation: radarPing 1.8s ease-out infinite 1.2s; }
+
+/* SUB-VIEW */
+.sub-view { display: none; }
+.sub-view.active { display: block; }
+
+/* BOTTOM NAV */
+#bottom-nav {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: 20px; padding: 10px;
+  display: flex; justify-content: space-around;
+  position: sticky; bottom: 16px; margin: 16px 24px 0;
+  max-width: 400px; margin-left: auto; margin-right: auto;
+}
+.bottom-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: none; background: transparent; color: var(--text-muted); font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; padding: 6px 16px; border-radius: 12px; transition: all .2s; font-family: inherit; }
+.bottom-btn:hover, .bottom-btn.active { color: var(--coral); background: rgba(255,90,56,.1); }
+
+/* CHAT */
+.chat-wrap { display: flex; flex-direction: column; height: 420px; background: var(--navy); border-radius: 16px; overflow: hidden; border: 1px solid var(--navy-border); }
+.chat-header { background: var(--navy-card); padding: 14px 18px; border-bottom: 1px solid var(--navy-border); display: flex; align-items: center; justify-content: space-between; }
+.chat-msgs { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.msg-left { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 16px 16px 16px 4px; padding: 10px 14px; max-width: 75%; font-size: .82rem; color: var(--text-main); align-self: flex-start; }
+.msg-right { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); border-radius: 16px 16px 4px 16px; padding: 10px 14px; max-width: 75%; font-size: .82rem; color: #fff; align-self: flex-end; }
+.chat-input-wrap { padding: 12px 16px; background: var(--navy-mid); border-top: 1px solid var(--navy-border); }
+
+/* CAROUSEL */
+.carousel-track { display: flex; transition: transform .5s ease; }
+.carousel-slide { min-width: 100%; padding: 32px 36px; }
+
+/* MATERI CARD */
+.materi-card {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: 16px; padding: 20px; cursor: pointer;
+  transition: all .2s;
+}
+.materi-card:hover { border-color: var(--coral); transform: translateY(-2px); }
+.materi-card .mc-icon { font-size: 2rem; margin-bottom: 12px; }
+.materi-card h4 { font-size: .9rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+.materi-card p { font-size: .75rem; color: var(--text-sub); line-height: 1.5; }
+
+/* TEST CARD */
+.test-option {
+  width: 100%; text-align: left; padding: 14px 18px;
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: 12px; color: var(--text-main); font-family: inherit;
+  font-size: .85rem; cursor: pointer; transition: all .2s; margin-bottom: 8px;
+}
+.test-option:hover { border-color: var(--coral); background: rgba(255,90,56,.06); }
+.test-option.correct { background: rgba(0,196,140,.12); border-color: var(--emerald); color: var(--emerald); }
+.test-option.wrong { background: rgba(255,90,56,.1); border-color: var(--coral); color: var(--coral); }
+
+/* DASHBOARD METRICS */
+.metric-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 16px; padding: 20px 24px; }
+.metric-val { font-size: 2rem; font-weight: 900; line-height: 1; margin-top: 6px; }
+.metric-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); }
+
+/* SECTION DIVIDER */
+.section-div { border: none; border-top: 1px solid var(--navy-border); margin: 28px 0; }
+
+/* LAYANAN GRID */
+.layanan-card {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: 18px; padding: 24px; transition: all .2s; cursor: pointer;
+}
+.layanan-card:hover { border-color: var(--coral); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,90,56,.1); }
+.layanan-card.selected { border-color: var(--coral); background: rgba(255,90,56,.07); }
+.layanan-icon { font-size: 2.2rem; margin-bottom: 12px; }
+.layanan-title { font-size: .9rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+.layanan-desc { font-size: .73rem; color: var(--text-sub); line-height: 1.5; }
+.layanan-price { font-size: .78rem; font-weight: 800; color: var(--coral); margin-top: 10px; }
+
+/* ===== PILIH TEKNISI (WhatsApp Booking) ===== */
+.wa-green { color: #25D366; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.filter-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 100px; font-size: .78rem; font-weight: 700;
+  background: var(--navy-card); border: 1px solid var(--navy-border); color: var(--text-sub);
+  cursor: pointer; transition: all .2s; font-family: inherit;
+}
+.filter-pill:hover { border-color: var(--teal); color: var(--text-main); }
+.filter-pill.active { background: var(--coral); border-color: var(--coral); color: #fff; }
+
+.tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media(max-width:900px){ .tech-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .tech-grid{ grid-template-columns: 1fr; } }
+.tech-card {
+  background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 18px;
+  padding: 20px; transition: all .2s; display: flex; flex-direction: column;
+}
+.tech-card:hover { border-color: var(--coral); transform: translateY(-3px); }
+.tech-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.tech-avatar {
+  width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.05rem; color: #fff;
+}
+.tech-name-row { flex: 1; min-width: 0; }
+.tech-name { font-size: .92rem; font-weight: 800; margin-bottom: 4px; }
+.tech-status {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .64rem; font-weight: 800; padding: 3px 9px; border-radius: 100px; text-transform: uppercase; letter-spacing: .03em;
+}
+.status-online { background: rgba(0,196,140,.14); color: var(--emerald); border: 1px solid rgba(0,196,140,.28); }
+.status-sibuk { background: rgba(245,166,35,.14); color: var(--amber); border: 1px solid rgba(245,166,35,.28); }
+.status-tersedia { background: rgba(0,194,184,.14); color: var(--teal); border: 1px solid rgba(0,194,184,.28); }
+.status-offline { background: rgba(255,77,77,.14); color: #FF6B6B; border: 1px solid rgba(255,77,77,.28); }
+.status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.tech-role { font-size: .68rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; display: none; }
+.tech-spec { font-size: .78rem; color: var(--text-sub); line-height: 1.5; margin-bottom: 12px; min-height: 36px; }
+.tech-spec-label { display: none; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); margin-bottom: 6px; }
+.tech-meta-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--navy-border); }
+.tech-meta { display: flex; align-items: center; gap: 5px; font-size: .74rem; color: var(--text-sub); font-weight: 600; }
+.tech-meta .star { color: var(--amber); }
+.tech-meta .star-empty { color: var(--navy-border); }
+.tech-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; list-style: none; }
+.tech-tag { font-size: .62rem; font-weight: 700; padding: 3px 9px; border-radius: 100px; background: rgba(0,194,184,.08); color: var(--teal); border: 1px solid rgba(0,194,184,.2); }
+
+/* MOBILE TECH CARD (per spec: circular photo, centered, bullet specialisasi) */
+@media(max-width:767px){
+  .tech-grid { grid-template-columns: 1fr; gap: 18px; }
+  .tech-card { align-items: center; text-align: center; padding: 24px 20px; }
+  .tech-card:active { transform: scale(.98); border-color: var(--coral); }
+  .tech-top { flex-direction: column; align-items: center; gap: 4px; margin-bottom: 10px; }
+  .tech-avatar { width: 84px; height: 84px; border-radius: 50%; font-size: 1.7rem; border: 3px solid var(--navy-border); }
+  .tech-name-row { text-align: center; width: 100%; }
+  .tech-name { font-size: 1.05rem; margin-bottom: 2px; }
+  .tech-role { display: block; }
+  .tech-status { margin: 6px 0 2px; }
+  .tech-spec { display: none; }
+  .tech-spec-label { display: block; text-align: left; width: 100%; }
+  .tech-tags { flex-direction: column; align-items: flex-start; width: 100%; gap: 4px; margin-bottom: 16px; }
+  .tech-tag { background: none; border: none; color: var(--text-sub); font-size: .82rem; font-weight: 600; padding: 2px 0; text-transform: none; letter-spacing: 0; }
+  .tech-tag::before { content: "• "; color: var(--teal); font-weight: 900; }
+  .tech-meta-row { width: 100%; justify-content: center; border-bottom: none; padding-bottom: 4px; margin-bottom: 16px; }
+  .tech-meta.stars { font-size: .95rem; }
+  .tech-meta.stars .rating-num { font-size: .8rem; color: var(--text-sub); margin-left: 4px; }
+}
+.btn-wa {
+  margin-top: auto;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, #25D366, #1DA851);
+  color: #fff; font-weight: 800; font-size: .8rem; padding: 11px 16px; border-radius: 12px;
+  cursor: pointer; font-family: inherit; border: none; transition: all .2s; text-decoration: none;
+  box-shadow: 0 8px 20px rgba(37,211,102,.28); width: 100%;
+}
+.btn-wa:hover { box-shadow: 0 12px 26px rgba(37,211,102,.42); transform: translateY(-1px); }
+.btn-wa:disabled { background: var(--navy-border); color: var(--text-muted); box-shadow: none; cursor: not-allowed; transform: none; }
+
+@media(max-width:767px){
+  .btn-primary, .btn-teal, .btn-emerald, .btn-secondary, .btn-wa, .filter-pill, .form-input {
+    min-height: 48px;
+  }
+  .btn-primary, .btn-teal, .btn-emerald { font-size: .95rem; }
+  .form-input { font-size: 1rem; padding: 13px 16px; }
+}
+@media(hover:none){
+  .btn-primary:active, .btn-teal:active, .btn-emerald:active, .btn-wa:active, .btn-secondary:active { transform: scale(.97); }
+}
+
+/* FLOATING CTA */
+#fab-cta {
+  position: fixed; bottom: 22px; right: 22px; z-index: 300;
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #25D366, #1DA851); color: #fff; font-weight: 800; font-size: .8rem;
+  padding: 14px 20px; border-radius: 100px; border: none; cursor: pointer; font-family: inherit;
+  box-shadow: 0 10px 30px rgba(37,211,102,.45); transition: all .2s;
+}
+#fab-cta:hover { transform: scale(1.05); box-shadow: 0 12px 34px rgba(37,211,102,.55); }
+@media(max-width:600px){ #fab-cta{ padding: 13px 18px; font-size: .78rem; bottom: 16px; right: 16px; min-height: 48px; } }
+@media(hover:none){ #fab-cta:active { transform: scale(.95); } }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav id="topnav">
+  <div class="nav-inner">
+    <button class="logo" onclick="showPage('order')">⚡ ElectriConnect</button>
+    <div class="nav-links">
+      <button id="nav-order" class="nav-btn active" onclick="showPage('order')">🔧 Cari Layanan</button>
+      <button id="nav-career" class="nav-btn" onclick="showPage('career')">🎓 Career Center</button>
+      <button id="nav-dashboard" class="nav-btn" onclick="showPage('dashboard')">📊 Dashboard</button>
+      <button class="theme-toggle" id="theme-toggle-desktop" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap">🌙</button>
+    </div>
+    <button class="theme-toggle" id="theme-toggle-mobile-top" onclick="toggleTheme()" aria-label="Ganti mode terang/gelap" style="display:none;margin-right:4px">🌙</button>
+    <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Buka menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu">
+  <a href="#" onclick="mobileNav('home');return false;">🏠 Home</a>
+  <a href="#" onclick="mobileNav('layanan');return false;">🔧 Layanan</a>
+  <a href="#" onclick="mobileNav('teknisi');return false;">👷 Teknisi</a>
+  <a href="#" onclick="mobileNav('testimoni');return false;">⭐ Testimoni</a>
+  <a href="#" onclick="mobileNav('kontak');return false;">📞 Kontak</a>
+  <div class="mobile-menu-theme" onclick="toggleTheme()">
+    <span id="mobile-theme-label">🌙 Mode Gelap</span>
+    <span style="font-size:1.1rem" id="mobile-theme-icon">🌙</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: ORDER / CARI LAYANAN -->
+<!-- ============================================================ -->
+<div id="page-order" class="page active">
+  <!-- HERO -->
+  <div class="hero-section">
+    <div class="hero-inner">
+      <div class="hero-badge">⚡ On-Demand Industrial & Residential Tech</div>
+      <h1 class="hero-title">Solusi Cepat Kelistrikan<br>Industri & Rumah Tangga</h1>
+      <p class="hero-sub">Temukan teknisi profesional bersertifikasi BNSP untuk maintenance, perbaikan, pemasangan baru, hingga instalasi KWH meter — dalam hitungan menit.</p>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Teknisi Terverifikasi</div></div>
+        <div class="stat-item"><div class="stat-num">&lt;15 mnt</div><div class="stat-label">Rata-rata Respons</div></div>
+        <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label">Tingkat Kepuasan</div></div>
+        <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Layanan Darurat</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT ORDER -->
+  <div class="content-wrap">
+    <div id="sub-beranda" class="sub-view active">
+      <!-- KATEGORI LAYANAN PILLS -->
+      <div id="layanan" style="margin-bottom:28px">
+        <div class="section-label">Kategori Layanan</div>
+        <div class="pill-row" id="pill-kategori">
+          <div class="pill active" onclick="pilihPill(this,'pill-kategori','select-kategori','Breakdown Maintenance (Alat Mati Total)')">
+            <span class="pill-icon">⚡</span><span class="pill-text">Breakdown</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Corrective Maintenance (Perbaikan Komponen)')">
+            <span class="pill-icon">🛠️</span><span class="pill-text">Corrective</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Predictive Maintenance (Pengecekan Kondisi)')">
+            <span class="pill-icon">📡</span><span class="pill-text">Predictive</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Troubleshooting (Diagnosa Gangguan)')">
+            <span class="pill-icon">🔍</span><span class="pill-text">Troubleshoot</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Overhaul (Pembongkaran Menyeluruh)')">
+            <span class="pill-icon">⚙️</span><span class="pill-text">Overhaul</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Pasang Panel Baru')">
+            <span class="pill-icon">🗲</span><span class="pill-text">Panel Baru</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Instalasi Listrik Baru')">
+            <span class="pill-icon">🏠</span><span class="pill-text">Instalasi Baru</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Pasang KWH Meter Baru')">
+            <span class="pill-icon">🔌</span><span class="pill-text">KWH Meter</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Tambah Daya Listrik')">
+            <span class="pill-icon">📈</span><span class="pill-text">Tambah Daya</span>
+          </div>
+          <div class="pill" onclick="pilihPill(this,'pill-kategori','select-kategori','Grounding / Arde Baru')">
+            <span class="pill-icon">🌍</span><span class="pill-text">Grounding</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- JASA PEMASANGAN BARU -->
+      <div style="margin-bottom:28px">
+        <div class="section-label">Jasa Pemasangan Baru — Pilih Layanan</div>
+        <div class="grid-4" style="margin-bottom:16px">
+          <div class="layanan-card" onclick="pilihLayanan(this,'Pasang Panel Listrik Baru')">
+            <div class="layanan-icon">🗲</div>
+            <div class="layanan-title">Pasang Panel Baru</div>
+            <div class="layanan-desc">Panel MCB/MCCB, Sub-Panel, MCC Panel industri dan residensial</div>
+            <div class="layanan-price">Mulai Rp800.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Instalasi Listrik Baru')">
+            <div class="layanan-icon">🏠</div>
+            <div class="layanan-title">Instalasi Listrik Baru</div>
+            <div class="layanan-desc">Instalasi titik lampu, stop kontak, jalur kabel, proteksi ELCB</div>
+            <div class="layanan-price">Mulai Rp500.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Pasang KWH Meter Baru')">
+            <div class="layanan-icon">🔌</div>
+            <div class="layanan-title">KWH Meter Baru</div>
+            <div class="layanan-desc">Pemasangan meter prabayar/pasca bayar, koordinasi PLN, segel resmi</div>
+            <div class="layanan-price">Mulai Rp350.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Tambah Daya Listrik')">
+            <div class="layanan-icon">📈</div>
+            <div class="layanan-title">Tambah Daya</div>
+            <div class="layanan-desc">Upgrade daya 900W-33000W, pengurusan SLO, koordinasi PLN</div>
+            <div class="layanan-price">Mulai Rp600.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Grounding & Arde Baru')">
+            <div class="layanan-icon">🌍</div>
+            <div class="layanan-title">Grounding / Arde</div>
+            <div class="layanan-desc">Pasang sistem pentanahan baru, pengukuran resistansi tanah ≤5Ω</div>
+            <div class="layanan-price">Mulai Rp400.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Instalasi Panel Surya/Solar')">
+            <div class="layanan-icon">☀️</div>
+            <div class="layanan-title">Panel Surya / Solar</div>
+            <div class="layanan-desc">Instalasi PLTS on-grid/off-grid, inverter, baterai storage</div>
+            <div class="layanan-price">Mulai Rp5.000.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Instalasi CCTV & Smart Home')">
+            <div class="layanan-icon">📷</div>
+            <div class="layanan-title">CCTV & Smart Home</div>
+            <div class="layanan-desc">Pemasangan CCTV, sensor gerak, smart switch, sistem otomasi rumah</div>
+            <div class="layanan-price">Mulai Rp300.000</div>
+          </div>
+          <div class="layanan-card" onclick="pilihLayanan(this,'Instalasi AC & HVAC')">
+            <div class="layanan-icon">❄️</div>
+            <div class="layanan-title">AC & HVAC Baru</div>
+            <div class="layanan-desc">Instalasi AC split, sentral, VRV/VRF, ducting, freon, uji komisi</div>
+            <div class="layanan-price">Mulai Rp450.000</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM + PERALATAN BERMASALAH -->
+      <div class="grid-1-2" style="align-items:start;gap:24px">
+        <!-- Peralatan Pills -->
+        <div>
+          <div class="section-label">Peralatan Bermasalah</div>
+          <div class="pill-row" id="pill-peralatan" style="flex-wrap:wrap;overflow:visible">
+            <div class="pill active" onclick="pilihPill(this,'pill-peralatan','select-peralatan','Motor Listrik 3-Phase')"><span class="pill-icon">🔌</span><span class="pill-text">Motor 3-Phase</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','Panel Listrik / MCC Panel')"><span class="pill-icon">🗲</span><span class="pill-text">Panel/MCC</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','Transformer / Generator')"><span class="pill-icon">🏭</span><span class="pill-text">Trafo/Genset</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','VFD / Inverter / UPS')"><span class="pill-icon">🔋</span><span class="pill-text">VFD/UPS</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','AC / HVAC System')"><span class="pill-icon">❄️</span><span class="pill-text">AC/HVAC</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','Pompa Air / Water Heater')"><span class="pill-icon">🚿</span><span class="pill-text">Pompa/Heater</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','KWH Meter / MCB / ELCB')"><span class="pill-icon">⚡</span><span class="pill-text">Meter/MCB</span></div>
+            <div class="pill" onclick="pilihPill(this,'pill-peralatan','select-peralatan','PLC / HMI / SCADA')"><span class="pill-icon">💻</span><span class="pill-text">PLC/HMI</span></div>
+          </div>
+
+          <!-- TEKNISI INFO -->
+          <div class="card" style="margin-top:20px;padding:20px">
+            <div class="section-label">Teknisi Unggulan</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,var(--coral),#ff9a38);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">KR</div>
+                <div style="flex:1">
+                  <div style="font-size:.85rem;font-weight:800">Kevin Romadhon</div>
+                  <div style="font-size:.7rem;color:var(--text-sub)">⭐ 1.0 · Pemasangan Baru (Panel & Instalasi)</div>
+                </div>
+                <span class="badge badge-emerald">Online</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,var(--teal),#FF8AAE);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">KR</div>
+                <div style="flex:1">
+                  <div style="font-size:.85rem;font-weight:800">Aditya Darmawan</div>
+                  <div style="font-size:.7rem;color:var(--text-sub)">⭐ 4.9 · Maintenance & Service (Motor Listrik 3-Phase)</div>
+                </div>
+                <span class="badge badge-emerald">Online</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,#55ECF7,#D6A936);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">KR</div>
+                <div style="flex:1">
+                  <div style="font-size:.85rem;font-weight:800">Iqbal Alghifari</div>
+                  <div style="font-size:.7rem;color:var(--text-sub)">⭐ 4.9 · Maintenance & Service (AC & HVAC)</div>
+                </div>
+                <span class="badge badge-amber">Sibuk</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,#4CADFC,#7B219E);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">KR</div>
+                <div style="flex:1">
+                  <div style="font-size:.85rem;font-weight:800">Bambang Maulana</div>
+                  <div style="font-size:.7rem;color:var(--text-sub)">⭐ 4.9 · Maintenance & Service (Panel Surya & Inverter Solar)</div>
+                </div>
+                <span class="badge badge-emerald">Online</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,var(--teal),#0099d4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">AR</div>
+                <div style="flex:1">
+                  <div style="font-size:.85rem;font-weight:800">Aji Radiansyah</div>
+                  <div style="font-size:.7rem;color:var(--text-sub)">⭐ 4.8 · Maintenance & Service Darurat</div>
+                </div>
+                <span class="badge badge-emerald">Online</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:42px;height:42px;background:linear-gradient(135deg,#a855f7,#6366f1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0">GS</div>
+                <div style="flex:1">
+                  <div style="font-size:.85rem;font-weight:800">Gesang Sukman Jaya</div>
+                  <div style="font-size:.7rem;color:var(--text-sub)">⭐ 4.7 · Desain Proyek & Gambar Teknik</div>
+                </div>
+                <span class="badge badge-amber">Sibuk</span>
+              </div>
+            </div>
+            <button onclick="document.getElementById('pilih-teknisi').scrollIntoView({behavior:'smooth'})" class="btn-secondary" style="width:100%;margin-top:16px;padding:10px;font-size:.78rem">💬 Lihat Semua &amp; Pesan via WhatsApp</button>
+          </div>
+        </div>
+
+        <!-- FORM UTAMA -->
+        <div class="card">
+          <div class="card-body">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+              <h2 style="font-size:1rem;font-weight:800">Formulir Permintaan Layanan</h2>
+              <span class="status-live"><span class="live-dot"></span>500+ Teknisi Aktif</span>
+            </div>
+            <form onsubmit="prosesOrder(event)">
+              <div style="margin-bottom:16px">
+                <label class="form-label">Nama Anda</label>
+                <input type="text" id="input-nama" class="form-input" placeholder="Nama lengkap" required>
+              </div>
+              <div style="margin-bottom:16px">
+                <label class="form-label">Kategori Layanan</label>
+                <select id="select-kategori" class="form-input" required>
+                  <optgroup label="Jasa Maintenance">
+                    <option>Breakdown Maintenance (Alat Mati Total)</option>
+                    <option>Corrective Maintenance (Perbaikan Komponen)</option>
+                    <option>Predictive Maintenance (Pengecekan Kondisi)</option>
+                    <option>Troubleshooting (Diagnosa Gangguan)</option>
+                    <option>Overhaul (Pembongkaran Menyeluruh)</option>
+                  </optgroup>
+                  <optgroup label="Jasa Pemasangan Baru">
+                    <option>Pasang Panel Listrik Baru</option>
+                    <option>Instalasi Listrik Baru</option>
+                    <option>Pasang KWH Meter Baru</option>
+                    <option>Tambah Daya Listrik</option>
+                    <option>Grounding & Arde Baru</option>
+                    <option>Instalasi Panel Surya/Solar</option>
+                    <option>Instalasi CCTV & Smart Home</option>
+                    <option>Instalasi AC & HVAC Baru</option>
+                    <option>Instalasi Kabel Tray & Conduit</option>
+                    <option>Pasang Lampu & Titik Daya Baru</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div style="margin-bottom:16px">
+                <label class="form-label">Peralatan / Objek Pekerjaan</label>
+                <select id="select-peralatan" class="form-input" required>
+                  <optgroup label="Industrial Equipment">
+                    <option>Motor Listrik 3-Phase</option>
+                    <option>Panel Listrik / MCC Panel</option>
+                    <option>Transformer / Generator</option>
+                    <option>VFD / Inverter / UPS</option>
+                    <option>PLC / HMI / SCADA</option>
+                    <option>KWH Meter / MCB / ELCB</option>
+                  </optgroup>
+                  <optgroup label="Building & Residential">
+                    <option>AC / HVAC System</option>
+                    <option>Pompa Air / Water Heater</option>
+                    <option>Instalasi Rumah / CCTV / Smart Home</option>
+                    <option>Panel Surya & Inverter Solar</option>
+                    <option>Instalasi Kabel Baru</option>
+                    <option>Grounding / Sistem Arde</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div style="margin-bottom:16px">
+                <label class="form-label">Deskripsi Pekerjaan / Kerusakan</label>
+                <textarea id="input-deskripsi" rows="3" class="form-input" placeholder="Jelaskan kondisi pekerjaan secara detail..." required>Motor 3 phase tiba-tiba berhenti. MCB tidak trip namun terdengar suara dengung saat dinyalakan.</textarea>
+              </div>
+              <div class="grid-2" style="margin-bottom:16px">
+                <div>
+                  <label class="form-label">Lokasi</label>
+                  <input type="text" id="input-lokasi" class="form-input" value="Jakarta Selatan" placeholder="Kota / Area">
+                </div>
+                <div>
+                  <label class="form-label">Deadline Pengerjaan</label>
+                  <select id="select-deadline" class="form-input" required>
+                    <option value="darurat">🚨 Darurat &lt;12 Jam (Harga Pas)</option>
+                    <option value="prioritas">⚡ Prioritas 24 Jam (Bisa Nego)</option>
+                    <option value="normal">📅 Fleksibel 1–3 Hari (Bisa Nego)</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn-primary">⚡ Cari Teknisi & Cek Estimasi</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================ -->
+      <!-- PILIH TEKNISI & PESAN VIA WHATSAPP -->
+      <!-- ================================================ -->
+      <div id="pilih-teknisi" style="margin-top:36px">
+        <div class="section-label">Pilih Teknisi</div>
+        <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:6px">6 Teknisi Siap Membantu Anda</h2>
+        <p style="font-size:.85rem;color:var(--text-sub);margin-bottom:20px;max-width:600px">Bandingkan spesialisasi, rating, dan ketersediaan. Klik "Pesan Sekarang" untuk chat langsung via WhatsApp dengan teknisi pilihan Anda — tanpa perantara.</p>
+
+        <div class="filter-row" id="filter-row">
+          <button class="filter-pill active" data-filter="semua" onclick="filterTeknisi('semua', this)">Semua</button>
+          <button class="filter-pill" data-filter="instalasi" onclick="filterTeknisi('instalasi', this)">🔧 Instalasi</button>
+          <button class="filter-pill" data-filter="perbaikan" onclick="filterTeknisi('perbaikan', this)">⚡ Perbaikan</button>
+          <button class="filter-pill" data-filter="maintenance" onclick="filterTeknisi('maintenance', this)">🛠️ Maintenance</button>
+          <button class="filter-pill" data-filter="konsultasi" onclick="filterTeknisi('konsultasi', this)">💡 Konsultasi</button>
+        </div>
+
+        <div class="tech-grid" id="tech-grid"><!-- diisi oleh JS --></div>
+      </div>
+
+      <!-- ================================================ -->
+      <!-- TESTIMONI -->
+      <!-- ================================================ -->
+      <div id="testimoni" style="margin-top:36px">
+        <div class="section-label">Testimoni</div>
+        <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:16px">Apa Kata Pelanggan Kami</h2>
+        <div class="grid-3">
+          <div class="card" style="padding:20px">
+            <div style="color:var(--amber);font-size:.85rem;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+            <p style="font-size:.85rem;color:var(--text-sub);line-height:1.6;margin-bottom:14px">Panel listrik rumah saya bermasalah tengah malam, teknisi datang cepat dan langsung beres. Responnya gercep banget!</p>
+            <div style="font-size:.8rem;font-weight:800">Dian S.</div>
+            <div style="font-size:.7rem;color:var(--text-muted)">Jakarta Selatan</div>
+          </div>
+          <div class="card" style="padding:20px">
+            <div style="color:var(--amber);font-size:.85rem;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+            <p style="font-size:.85rem;color:var(--text-sub);line-height:1.6;margin-bottom:14px">Pemasangan panel surya rapi dan sesuai estimasi budget. Teknisinya juga jelasin detail tiap tahap pengerjaan.</p>
+            <div style="font-size:.8rem;font-weight:800">Reza P.</div>
+            <div style="font-size:.7rem;color:var(--text-muted)">Tangerang</div>
+          </div>
+          <div class="card" style="padding:20px">
+            <div style="color:var(--amber);font-size:.85rem;margin-bottom:10px">⭐⭐⭐⭐⭐</div>
+            <p style="font-size:.85rem;color:var(--text-sub);line-height:1.6;margin-bottom:14px">Maintenance motor 3-phase pabrik kami jadi lebih terjadwal. Booking via WhatsApp juga praktis, tanpa ribet.</p>
+            <div style="font-size:.8rem;font-weight:800">Pak Hendra</div>
+            <div style="font-size:.7rem;color:var(--text-muted)">Bekasi (Industri)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================ -->
+      <!-- KONTAK -->
+      <!-- ================================================ -->
+      <div id="kontak" style="margin-top:36px">
+        <div class="section-label">Kontak</div>
+        <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:16px">Hubungi Kami</h2>
+        <div class="card" style="padding:24px">
+          <div class="grid-3" style="margin-bottom:18px">
+            <div><div style="font-size:.68rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">📞 Telepon</div><div style="font-size:.85rem;font-weight:700">0812-9815-2320</div></div>
+            <div><div style="font-size:.68rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">✉️ Email</div><div style="font-size:.85rem;font-weight:700">cs@electriconnect.id</div></div>
+            <div><div style="font-size:.68rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">📍 Area Layanan</div><div style="font-size:.85rem;font-weight:700">Jabodetabek & Sekitarnya</div></div>
+          </div>
+          <button class="btn-wa" style="max-width:280px" onclick="window.open('https://wa.me/6281298152320?text=' + encodeURIComponent('Halo Admin ElectriConnect, saya ingin bertanya tentang layanan teknisi.'), '_blank')">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.3.38-.43.51-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.38-.24.64-.14.26.1 1.66.78 1.95.93.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+            Chat Admin via WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <div id="bottom-nav" style="margin-top:32px">
+        <button class="bottom-btn active" id="btn-beranda" onclick="showSubView('sub-beranda','btn-beranda')">
+          <svg style="width:20px;height:20px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4.5 10.5V21h5v-6h5v6h5V10.5"/></svg>
+          Beranda
+        </button>
+        <button class="bottom-btn" id="btn-pesanan" onclick="showSubView('sub-pesanan','btn-pesanan')">
+          <svg style="width:20px;height:20px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          Pesanan
+        </button>
+        <button class="bottom-btn" id="btn-chat" onclick="showSubView('sub-chat','btn-chat')">
+          <svg style="width:20px;height:20px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          Chat
+        </button>
+      </div>
+    </div>
+
+    <!-- SUB: LOADING -->
+    <div id="sub-loading" class="sub-view" style="max-width:500px;margin:60px auto;text-align:center">
+      <div style="position:relative;width:120px;height:120px;margin:0 auto 28px">
+        <div class="radar-ring" style="position:absolute;inset:0;border-radius:50%;border:2px solid var(--coral);opacity:.5"></div>
+        <div class="radar-ring-2" style="position:absolute;inset:0;border-radius:50%;border:2px solid var(--teal);opacity:.4"></div>
+        <div class="radar-ring-3" style="position:absolute;inset:0;border-radius:50%;border:2px solid var(--coral);opacity:.3"></div>
+        <div style="position:absolute;inset:20px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1.8rem">⚡</div>
+      </div>
+      <h3 style="font-size:1.2rem;font-weight:900;margin-bottom:8px">Menghubungkan ke Teknisi...</h3>
+      <p style="font-size:.8rem;color:var(--text-sub);margin-bottom:24px">Menyaring kualifikasi & sertifikasi BNSP</p>
+      <div class="card" style="padding:20px;text-align:left">
+        <div class="mono" style="font-size:.72rem;color:var(--coral);font-weight:700;margin-bottom:8px">ANALISIS AI ELECTRICONNECT:</div>
+        <div style="font-size:.8rem;color:var(--text-sub)">Indikasi kerusakan: <span style="color:var(--amber);font-weight:700">Short Circuit Winding / Broken Bearing</span></div>
+        <div style="font-size:.8rem;color:var(--emerald);font-weight:700;margin-top:6px">Estimasi Budget: Rp600.000 – Rp2.000.000</div>
+      </div>
+    </div>
+
+    <!-- SUB: MATCH -->
+    <div id="sub-match" class="sub-view" style="max-width:600px;margin:40px auto">
+      <div style="text-align:center;margin-bottom:20px">
+        <span class="badge badge-emerald" style="font-size:.75rem;padding:6px 16px">✅ Teknisi Spesialis Ditemukan!</span>
+      </div>
+      <div class="card" style="padding:24px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+          <div style="width:56px;height:56px;background:linear-gradient(135deg,var(--teal),#0099d4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">AR</div>
+          <div style="flex:1">
+            <div style="font-size:1.05rem;font-weight:900">Aji Radiansyah</div>
+            <div style="font-size:.78rem;color:var(--text-sub)">⭐ 4.9 (230 Pengerjaan) · Maintenance · Jarak 4.2 Km</div>
+            <span class="badge badge-blue" style="margin-top:6px;font-size:.62rem">Sertifikasi K3 & BNSP Utama</span>
+          </div>
+        </div>
+        <div style="background:var(--navy-mid);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:.8rem;color:var(--text-sub)">Penawaran Awal:</span>
+            <span style="font-size:1.4rem;font-weight:900;color:var(--emerald)">Rp1.200.000</span>
+          </div>
+          <p style="font-size:.78rem;color:var(--text-sub);font-style:italic">"Siap melakukan pembongkaran dinamo & pengecekan gulungan tembaga malam ini."</p>
+        </div>
+        <div id="container-aksi-nego"></div>
+      </div>
+    </div>
+
+    <!-- SUB: PESANAN -->
+    <div id="sub-pesanan" class="sub-view" style="max-width:700px;margin:40px auto">
+      <div class="card" style="padding:24px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <h2 style="font-size:1rem;font-weight:800">Status Pesanan Aktif</h2>
+          <button onclick="showSubView('sub-beranda','btn-beranda')" style="display:flex;align-items:center;gap:6px;background:var(--navy-mid);border:1px solid var(--navy-border);color:var(--text-sub);font-size:.75rem;font-weight:700;padding:8px 14px;border-radius:10px;cursor:pointer;font-family:inherit">
+            <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+            Kembali ke Beranda
+          </button>
+        </div>
+        <div id="konten-pesanan" style="padding:40px 0;text-align:center;color:var(--text-muted);font-size:.85rem">
+          <svg style="width:40px;height:40px;margin:0 auto 12px;color:var(--text-muted)" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632A2.25 2.25 0 0117.378 20.25H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>
+          Belum ada pesanan aktif. Buat permintaan layanan di Beranda.
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB: CHAT -->
+    <div id="sub-chat" class="sub-view" style="max-width:600px;margin:40px auto">
+      <div class="chat-wrap">
+        <div class="chat-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <button onclick="showSubView('sub-beranda','btn-beranda')" style="display:flex;align-items:center;background:none;border:none;color:var(--text-sub);cursor:pointer;padding:2px" title="Kembali ke Beranda">
+              <svg style="width:18px;height:18px" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+            </button>
+            <span class="live-dot"></span>
+            <span style="font-size:.9rem;font-weight:800">Aji Radiansyah (Teknisi)</span>
+          </div>
+          <span id="countdown-display" class="badge badge-amber" style="display:none">Sisa: 02:00</span>
+        </div>
+        <div style="background:rgba(245,166,35,.08);border-bottom:1px solid rgba(245,166,35,.2);padding:10px 16px;text-align:center">
+          <p style="font-size:.72rem;color:var(--amber);font-weight:700">⚠️ Ruang Komunikasi Resmi — Dilarang Bayar Di Luar Platform</p>
+        </div>
+        <div class="chat-msgs" id="chat-msgs">
+          <div class="msg-left">Halo, ada yang bisa saya bantu terkait kendala sistem kelistrikannya?</div>
+          <div id="chat-tawaran-user" class="msg-right" style="display:none">
+            <div style="font-size:.72rem;opacity:.8;margin-bottom:4px">Tawaran dikirim</div>
+            <div id="teks-tawaran"></div>
+          </div>
+        </div>
+        <div class="chat-input-wrap">
+          <div id="form-nego" class="grid-2" style="gap:10px;margin-bottom:10px">
+            <div>
+              <label class="form-label" style="font-size:.65rem">Nominal Tawar (Rp)</label>
+              <input id="input-harga-tawar" type="number" placeholder="1000000" class="form-input" style="font-size:.82rem;padding:9px 12px">
+            </div>
+            <div>
+              <label class="form-label" style="font-size:.65rem">Batas Waktu</label>
+              <select id="input-durasi-timer" class="form-input" style="font-size:.82rem;padding:9px 12px">
+                <option value="120">2 Menit (Demo)</option>
+                <option value="300">5 Menit</option>
+                <option value="600">10 Menit</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button onclick="kirimTawaran()" class="btn-primary" style="padding:10px 20px;font-size:.82rem">Kirim Tawaran</button>
+            <button id="btn-skip" onclick="simulasiTimeout()" style="display:none;padding:10px 16px;font-size:.75rem;background:rgba(255,90,56,.1);border:1px solid rgba(255,90,56,.2);color:var(--coral);border-radius:12px;cursor:pointer;font-family:inherit;font-weight:700">Skip Timer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: CAREER CENTER -->
+<!-- ============================================================ -->
+<div id="page-career" class="page">
+  <!-- HERO CAREER -->
+  <div class="hero-section" style="background:linear-gradient(135deg,#0D1B2A 0%,#1a1040 50%,#0D1B2A 100%)">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(168,85,247,.08),transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(0,194,184,.06),transparent 60%);pointer-events:none"></div>
+    <div class="hero-inner" style="position:relative">
+      <div class="hero-badge" style="background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.25);color:#c084fc">🎓 Program Inkubasi Talenta Elektrikal</div>
+      <h1 class="hero-title">Bingung Menentukan Arah Karir?</h1>
+      <p style="font-size:1.3rem;font-weight:800;color:#c084fc;font-style:italic;margin-bottom:10px">"Maybe You're an Electrician."</p>
+      <p class="hero-sub">Masa depan cerah tidak harus di balik meja kantor. Kuasai dunia elektrikal: dari dasar-dasar listrik, PLC, Arduino, hingga software teknik profesional.</p>
+      <div style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:30px">
+        <span style="font-size:.75rem;color:var(--text-sub)">🧑‍🏫 Dibimbing langsung oleh Staf Pelatihan:</span>
+        <strong style="font-size:.75rem;color:#c084fc">Adit Darmawan</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <!-- JALUR UTAMA -->
+    <div class="grid-2" style="margin-bottom:36px">
+      <div class="card" style="padding:28px;border-color:rgba(0,194,184,.3)">
+        <span class="badge badge-teal" style="margin-bottom:16px">Jalur A</span>
+        <h2 style="font-size:1.2rem;font-weight:900;margin-bottom:10px">Validasi Kompetensi</h2>
+        <p style="font-size:.82rem;color:var(--text-sub);line-height:1.6;margin-bottom:20px">Uji kemampuan Anda di bidang listrik dasar, elektronika, arus lemah & arus kuat. Dapatkan sertifikat kompetensi yang diakui industri.</p>
+        <button class="btn-teal" onclick="showCareerSection('tes-kompetensi')">Mulai Tes Kompetensi</button>
+      </div>
+      <div class="card" style="padding:28px;border-color:rgba(255,90,56,.3)">
+        <span class="badge badge-coral" style="margin-bottom:16px">Jalur B</span>
+        <h2 style="font-size:1.2rem;font-weight:900;margin-bottom:10px">Akademi Praktis</h2>
+        <p style="font-size:.82rem;color:var(--text-sub);line-height:1.6;margin-bottom:20px">Ikuti pelatihan terstruktur: PLC, Arduino, software elektrikal profesional, dan materi dasar yang membangun fondasi karir Anda.</p>
+        <button class="btn-primary" onclick="showCareerSection('akademi')">Lihat Kelas & Pelatihan</button>
+      </div>
+    </div>
+
+    <!-- TES KOMPETENSI SECTION -->
+    <div id="career-tes-kompetensi" style="display:none">
+      <hr class="section-div">
+      <h2 style="font-size:1.2rem;font-weight:900;margin-bottom:6px">🎯 Tes Kompetensi Elektrikal</h2>
+      <p style="font-size:.82rem;color:var(--text-sub);margin-bottom:24px">Pilih bidang tes dan latih kemampuan Anda dengan soal-soal berbasis standar industri & BNSP.</p>
+      
+      <!-- TES KATEGORI PILLS -->
+      <div class="pill-row" id="pill-tes" style="margin-bottom:24px">
+        <div class="pill active" onclick="pilihTes('dasar-listrik')"><span class="pill-icon">⚡</span><span class="pill-text">Dasar Listrik</span></div>
+        <div class="pill" onclick="pilihTes('elektronika')"><span class="pill-icon">🔬</span><span class="pill-text">Elektronika</span></div>
+        <div class="pill" onclick="pilihTes('arus-lemah')"><span class="pill-icon">📡</span><span class="pill-text">Arus Lemah</span></div>
+        <div class="pill" onclick="pilihTes('arus-kuat')"><span class="pill-icon">⚙️</span><span class="pill-text">Arus Kuat</span></div>
+        <div class="pill" onclick="pilihTes('plc')"><span class="pill-icon">💻</span><span class="pill-text">PLC & Otomasi</span></div>
+        <div class="pill" onclick="pilihTes('k3')"><span class="pill-icon">🦺</span><span class="pill-text">K3 Listrik</span></div>
+      </div>
+
+      <div id="area-tes" class="card" style="padding:28px;max-width:680px">
+        <div id="tes-info" style="margin-bottom:20px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <span id="tes-judul" style="font-size:.95rem;font-weight:800">Dasar-Dasar Listrik</span>
+            <span id="tes-progress" class="mono badge badge-teal">Soal 1 / 5</span>
+          </div>
+          <div style="height:4px;background:var(--navy-border);border-radius:4px;overflow:hidden;margin-top:8px">
+            <div id="tes-bar" style="height:100%;width:20%;background:linear-gradient(90deg,var(--teal),var(--coral));border-radius:4px;transition:width .4s"></div>
+          </div>
+        </div>
+        <p id="soal-text" style="font-size:.95rem;font-weight:700;margin-bottom:20px;line-height:1.5">Apa satuan dari tegangan listrik?</p>
+        <div id="opsi-container"></div>
+        <div id="hasil-soal" style="display:none;margin-top:16px;padding:14px;border-radius:12px;font-size:.82rem;line-height:1.5"></div>
+        <div id="btn-next-wrap" style="display:none;margin-top:16px">
+          <button onclick="nextSoal()" class="btn-primary" style="padding:12px">Soal Berikutnya →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AKADEMI SECTION -->
+    <div id="career-akademi" style="display:none">
+      <hr class="section-div">
+      <h2 style="font-size:1.2rem;font-weight:900;margin-bottom:6px">📚 Akademi & Pelatihan</h2>
+      <p style="font-size:.82rem;color:var(--text-sub);margin-bottom:24px">Kurikulum terstruktur dari nol hingga profesional. Pilih jalur pelatihan sesuai minat Anda.</p>
+
+      <!-- MATERI DASAR -->
+      <h3 style="font-size:.85rem;font-weight:800;color:var(--text-sub);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px">📖 Materi Dasar Wajib</h3>
+      <div class="grid-4" style="margin-bottom:32px">
+        <div class="materi-card" onclick="showMateri('ohm')">
+          <div class="mc-icon">⚡</div>
+          <h4>Hukum Ohm & Kirchhoff</h4>
+          <p>V=IR, KVL, KCL, rangkaian seri-paralel. Fondasi utama semua bidang listrik.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('komponen')">
+          <div class="mc-icon">🔬</div>
+          <h4>Komponen Elektronika</h4>
+          <p>Resistor, kapasitor, induktor, dioda, transistor, MOSFET, Op-Amp.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('instalasi')">
+          <div class="mc-icon">🏠</div>
+          <h4>Instalasi Listrik Dasar</h4>
+          <p>PUIL 2011, kabel NYA/NYM/NYY, grounding, MCB, stop kontak, titik lampu.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('panel')">
+          <div class="mc-icon">🗲</div>
+          <h4>Panel & Proteksi</h4>
+          <p>MCB, MCCB, ELCB, fuse, relay proteksi, koordinasi pengaman.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('motor')">
+          <div class="mc-icon">🔌</div>
+          <h4>Motor Listrik & Kontrol</h4>
+          <p>Motor AC/DC, DOL starter, bintang-segitiga, soft starter, VFD/inverter.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('kwh')">
+          <div class="mc-icon">📟</div>
+          <h4>KWH Meter & Tarif</h4>
+          <p>Meter analog/digital/prabayar, cara baca, tarif PLN, daya aktif/reaktif.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('k3')">
+          <div class="mc-icon">🦺</div>
+          <h4>K3 Listrik & Keselamatan</h4>
+          <p>Bahaya listrik, APD wajib, SOP pekerjaan bertegangan, LOTO, pertolongan pertama.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Wajib</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('gambar')">
+          <div class="mc-icon">📐</div>
+          <h4>Gambar Teknik Listrik</h4>
+          <p>Simbol IEC/NEMA, single-line diagram, ladder diagram, wiring diagram.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+      </div>
+
+      <!-- PELATIHAN ARUS LEMAH -->
+      <h3 style="font-size:.85rem;font-weight:800;color:var(--text-sub);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px">📡 Pelatihan Arus Lemah (Low Current)</h3>
+      <div class="grid-3" style="margin-bottom:32px">
+        <div class="materi-card" onclick="showMateri('arduino')">
+          <div class="mc-icon">🤖</div>
+          <h4>Arduino & Mikrokontroler</h4>
+          <p>Arduino Uno/Mega/Nano, sensor, aktuator, komunikasi serial, IoT dasar, proyek real.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula–Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('elektronika-analog')">
+          <div class="mc-icon">〰️</div>
+          <h4>Elektronika Analog</h4>
+          <p>Sinyal AC/DC, filter, amplifier, osiloskop, power supply, rectifier.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('cctv-jaringan')">
+          <div class="mc-icon">📷</div>
+          <h4>CCTV & Jaringan</h4>
+          <p>Kamera IP/analog, NVR/DVR, kabel CAT6, PoE, konfigurasi remote viewing.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('smarthome')">
+          <div class="mc-icon">🏡</div>
+          <h4>Smart Home & IoT</h4>
+          <p>Home Automation, protokol Zigbee/Z-Wave/WiFi, integrasi Google Home/Alexa.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('telepon')">
+          <div class="mc-icon">☎️</div>
+          <h4>Sistem Telekomunikasi</h4>
+          <p>PABX, fiber optic dasar, kabel UTP, patch panel, structured cabling.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('fire-alarm')">
+          <div class="mc-icon">🚨</div>
+          <h4>Fire Alarm & BAS</h4>
+          <p>Sistem deteksi kebakaran, addressable/conventional, Building Automation System.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+      </div>
+
+      <!-- PELATIHAN ARUS KUAT -->
+      <h3 style="font-size:.85rem;font-weight:800;color:var(--text-sub);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px">⚙️ Pelatihan Arus Kuat (High Current)</h3>
+      <div class="grid-3" style="margin-bottom:32px">
+        <div class="materi-card" onclick="showMateri('plc')">
+          <div class="mc-icon">💻</div>
+          <h4>PLC (Programmable Logic Controller)</h4>
+          <p>PLC Siemens S7-1200, Omron CP1H, Schneider M221. Ladder diagram, FBD, STL, HMI, SCADA.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('vfd-motor')">
+          <div class="mc-icon">🌀</div>
+          <h4>VFD & Kontrol Motor</h4>
+          <p>Variable Frequency Drive, setting parameter, PID control, bintang-segitiga otomatis, soft starter.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('panel-mcc')">
+          <div class="mc-icon">🏗️</div>
+          <h4>Panel MCC & Power Distribution</h4>
+          <p>Motor Control Center, busbar, CT/PT, relay proteksi, koordinasi MCB-MCCB-ACB.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('solar')">
+          <div class="mc-icon">☀️</div>
+          <h4>Instalasi Panel Surya</h4>
+          <p>PLTS on-grid/off-grid, sizing panel & baterai, inverter string/mikro, SLO PLN.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('hvac-elektrikal')">
+          <div class="mc-icon">❄️</div>
+          <h4>Elektrikal HVAC & Chiller</h4>
+          <p>Wiring AC, kontrol kompresor, chilller plant, cooling tower, BMS/DDC.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('k3-tegangan')">
+          <div class="mc-icon">⚠️</div>
+          <h4>Pekerjaan Tegangan Tinggi</h4>
+          <p>SOP pekerjaan di 20kV, APD khusus, LOTO, Surat Izin Kerja Khusus, koordinasi PLN.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Wajib + Lanjutan</span></div>
+        </div>
+      </div>
+
+      <!-- SOFTWARE ELEKTRIKAL -->
+      <h3 style="font-size:.85rem;font-weight:800;color:var(--text-sub);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px">🖥️ Software Elektrikal Profesional</h3>
+      <div class="grid-4" style="margin-bottom:32px">
+        <div class="materi-card" onclick="showMateri('autocad-elektrikal')">
+          <div class="mc-icon">📐</div>
+          <h4>AutoCAD Electrical</h4>
+          <p>Gambar wiring diagram, schematic, panel layout, BOM otomatis, standar IEC/NEMA.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('eplan')">
+          <div class="mc-icon">⚙️</div>
+          <h4>EPLAN Electric P8</h4>
+          <p>Perangkat lunak desain elektrikal standar industri Eropa. Sangat dicari di pabrik besar.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('etap')">
+          <div class="mc-icon">📊</div>
+          <h4>ETAP (Power System)</h4>
+          <p>Analisis load flow, short circuit, arc flash, koordinasi relay proteksi sistem tenaga.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('dialux')">
+          <div class="mc-icon">💡</div>
+          <h4>DIALux & Relux</h4>
+          <p>Perencanaan sistem pencahayaan, perhitungan lux level, desain tata cahaya bangunan.</p>
+          <div style="margin-top:12px"><span class="badge badge-amber">Menengah</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('tia-portal')">
+          <div class="mc-icon">🔧</div>
+          <h4>TIA Portal (Siemens)</h4>
+          <p>Pemrograman PLC S7-1200/1500, konfigurasi HMI, jaringan PROFINET, safety PLC.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('cx-programmer')">
+          <div class="mc-icon">🖥️</div>
+          <h4>CX-Programmer (Omron)</h4>
+          <p>Pemrograman PLC Omron CP/CJ series, ladder, FBD, komunikasi Modbus/EtherNet/IP.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('labview')">
+          <div class="mc-icon">📈</div>
+          <h4>LabVIEW & NI DAQ</h4>
+          <p>Akuisisi data, instrumen virtual, monitoring & kontrol sistem berbasis National Instruments.</p>
+          <div style="margin-top:12px"><span class="badge badge-coral">Lanjutan</span></div>
+        </div>
+        <div class="materi-card" onclick="showMateri('proteus')">
+          <div class="mc-icon">🔬</div>
+          <h4>Proteus & Multisim</h4>
+          <p>Simulasi rangkaian elektronika, desain PCB, uji virtual sebelum implementasi hardware.</p>
+          <div style="margin-top:12px"><span class="badge badge-teal">Pemula–Menengah</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL MATERI -->
+    <div id="modal-materi" style="display:none;position:fixed;inset:0;background:rgba(13,27,42,.92);z-index:200;display:none;align-items:center;justify-content:center;padding:20px">
+      <div class="card" style="max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:32px;position:relative">
+        <button onclick="tutupModal()" style="position:absolute;top:16px;right:16px;background:var(--navy-border);border:none;color:var(--text-sub);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;font-family:inherit">✕</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: DASHBOARD -->
+<!-- ============================================================ -->
+<div id="page-dashboard" class="page">
+  <div class="content-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;position:relative;border-radius:20px;padding:22px 26px;overflow:hidden;background:linear-gradient(120deg,rgba(255,90,56,.14),rgba(0,194,184,.10) 50%,rgba(168,85,247,.10));border:1px solid var(--navy-border)">
+      <div>
+        <h1 style="font-size:1.5rem;font-weight:900;background:linear-gradient(90deg,var(--coral-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Panel Kontrol Dashboard</h1>
+        <p style="font-size:.8rem;color:var(--text-sub);margin-top:4px">Kelola semua aktivitas dan transaksi Anda</p>
+      </div>
+      <div style="text-align:right">
+        <span class="mono badge badge-teal" style="font-size:.7rem">Akun: Mitra Korporat</span>
+        <div style="font-size:.68rem;color:var(--text-sub);margin-top:6px">Dikelola oleh Admin: <strong style="color:var(--text-main)">Bambang Maulana</strong></div>
+      </div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="grid-4" style="margin-bottom:24px">
+      <div class="metric-card" style="background:linear-gradient(160deg,rgba(255,90,56,.10),var(--navy-card));border-color:rgba(255,90,56,.25)">
+        <div class="metric-label">Total Pesanan</div>
+        <div class="metric-val" style="color:var(--coral-light)">12</div>
+        <div style="font-size:.7rem;color:var(--emerald);margin-top:6px">↑ 3 bulan ini</div>
+      </div>
+      <div class="metric-card" style="background:linear-gradient(160deg,rgba(0,196,140,.10),var(--navy-card));border-color:rgba(0,196,140,.25)">
+        <div class="metric-label">Pekerjaan Selesai</div>
+        <div class="metric-val" style="color:var(--emerald)">10</div>
+        <div style="font-size:.7rem;color:var(--emerald);margin-top:6px">83% completion rate</div>
+      </div>
+      <div class="metric-card" style="background:linear-gradient(160deg,rgba(245,166,35,.10),var(--navy-card));border-color:rgba(245,166,35,.25)">
+        <div class="metric-label">Sedang Berjalan</div>
+        <div class="metric-val" style="color:var(--amber)">2</div>
+        <div style="font-size:.7rem;color:var(--amber);margin-top:6px">Menunggu konfirmasi</div>
+      </div>
+      <div class="metric-card" style="background:linear-gradient(160deg,rgba(0,194,184,.10),var(--navy-card));border-color:rgba(0,194,184,.25)">
+        <div class="metric-label">Total Pengeluaran</div>
+        <div class="metric-val" style="color:var(--coral);font-size:1.4rem">Rp14,7Jt</div>
+        <div style="font-size:.7rem;color:var(--text-sub);margin-top:6px">Platform fee 5% inkl.</div>
+      </div>
+    </div>
+
+    <!-- CAROUSEL PROMO -->
+    <div style="position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--navy-border);margin-bottom:24px" id="carousel-wrap">
+      <div id="carousel-track" class="carousel-track">
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#1d4ed8,#0e7490)">
+          <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.7">Promo Minggu Ini</span>
+          <h3 style="font-size:1.4rem;font-weight:900;margin:8px 0">Diskon 15% Layanan Maintenance</h3>
+          <p style="font-size:.8rem;opacity:.8">Berlaku untuk semua kategori Predictive Maintenance.</p>
+        </div>
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#047857,#0e7490)">
+          <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.7">Dana Aman</span>
+          <h3 style="font-size:1.4rem;font-weight:900;margin:8px 0">Sistem Escrow Melindungi Transaksi Anda</h3>
+          <p style="font-size:.8rem;opacity:.8">Dana baru dilepas setelah pekerjaan terverifikasi selesai.</p>
+        </div>
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#b45309,var(--coral-dark))">
+          <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.7">Promo Baru</span>
+          <h3 style="font-size:1.4rem;font-weight:900;margin:8px 0">Pasang Panel Baru — Gratis Survey!</h3>
+          <p style="font-size:.8rem;opacity:.8">Pesan jasa pemasangan panel baru dan dapatkan survey lokasi gratis.</p>
+        </div>
+        <div class="carousel-slide" style="background:linear-gradient(135deg,#6d28d9,#1d4ed8)">
+          <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;opacity:.7">Career Center</span>
+          <h3 style="font-size:1.4rem;font-weight:900;margin:8px 0">"Maybe You're an Electrician."</h3>
+          <p style="font-size:.8rem;opacity:.8">Ikuti tes kompetensi & temukan jalur karir terbaik Anda.</p>
+        </div>
+      </div>
+      <button onclick="carouselMove(-1)" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;cursor:pointer;font-size:1.1rem">‹</button>
+      <button onclick="carouselMove(1)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.4);border:none;color:#fff;cursor:pointer;font-size:1.1rem">›</button>
+      <div id="carousel-dots" style="position:absolute;bottom:10px;left:0;width:100%;display:flex;justify-content:center;gap:6px"></div>
+    </div>
+
+    <!-- ESCROW + HISTORY -->
+    <div class="grid-2-3" style="margin-bottom:24px">
+      <!-- LEFT: FINANCIAL -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:24px;background:linear-gradient(135deg,var(--navy-card),#0a2240);border-color:rgba(0,194,184,.25)">
+          <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--teal)">Platform Escrow Balance</div>
+          <div style="font-size:2.2rem;font-weight:900;margin:10px 0;color:var(--text-main)">Rp1.200.000</div>
+          <div style="font-size:.75rem;color:var(--text-sub);border-top:1px solid var(--navy-border);padding-top:12px">Dana aman ditahan platform sampai pekerjaan dikonfirmasi selesai.</div>
+        </div>
+
+        <div class="card" style="padding:20px">
+          <div class="section-label" style="margin-bottom:14px">Teknisi Terakhir</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--teal),#0099d4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem">AR</div>
+            <div>
+              <div style="font-size:.85rem;font-weight:800">Aji Radiansyah</div>
+              <div style="font-size:.72rem;color:var(--text-sub)">Spesialis Maintenance & Service Darurat</div>
+            </div>
+          </div>
+          <button onclick="pesanTeknisi('aji')" class="btn-secondary" style="width:100%;padding:10px;font-size:.8rem">💬 Hubungi Lagi via WhatsApp</button>
+        </div>
+
+        <!-- LAYANAN STATS DASHBOARD -->
+        <div class="card" style="padding:20px">
+          <div class="section-label" style="margin-bottom:14px">Layanan Paling Sering Dipesan</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.8rem">Breakdown Maintenance</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:80px;height:6px;background:var(--navy-border);border-radius:6px;overflow:hidden"><div style="width:70%;height:100%;background:var(--coral);border-radius:6px"></div></div>
+                <span style="font-size:.72rem;font-weight:700;color:var(--coral)">4x</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.8rem">Pasang Panel Baru</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:80px;height:6px;background:var(--navy-border);border-radius:6px;overflow:hidden"><div style="width:50%;height:100%;background:var(--teal);border-radius:6px"></div></div>
+                <span style="font-size:.72rem;font-weight:700;color:var(--teal)">3x</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.8rem">KWH Meter Baru</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:80px;height:6px;background:var(--navy-border);border-radius:6px;overflow:hidden"><div style="width:35%;height:100%;background:var(--amber);border-radius:6px"></div></div>
+                <span style="font-size:.72rem;font-weight:700;color:var(--amber)">2x</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.8rem">Instalasi Baru</span>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:80px;height:6px;background:var(--navy-border);border-radius:6px;overflow:hidden"><div style="width:25%;height:100%;background:var(--emerald);border-radius:6px"></div></div>
+                <span style="font-size:.72rem;font-weight:700;color:var(--emerald)">2x</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: STATUS & RIWAYAT -->
+      <div class="card" style="padding:24px">
+        <h3 style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-sub);margin-bottom:16px">Status Lacak Pekerjaan Aktif</h3>
+        <div style="background:var(--navy-mid);border-radius:14px;padding:16px;border:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div>
+            <div style="font-size:.9rem;font-weight:800">Overhaul Motor 3-Phase</div>
+            <div style="font-size:.75rem;color:var(--amber);margin-top:4px;font-weight:600">⚡ Menunggu Verifikasi Pembayaran</div>
+          </div>
+          <span class="mono" style="font-size:.65rem;background:var(--navy-card);border:1px solid var(--navy-border);padding:4px 10px;border-radius:8px;color:var(--text-sub)">INV-998A2</span>
+        </div>
+        <div style="background:var(--navy-mid);border-radius:14px;padding:16px;border:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <div>
+            <div style="font-size:.9rem;font-weight:800">Pasang Panel MCB Baru</div>
+            <div style="font-size:.75rem;color:var(--teal);margin-top:4px;font-weight:600">🔧 Teknisi dalam perjalanan</div>
+          </div>
+          <span class="mono" style="font-size:.65rem;background:var(--navy-card);border:1px solid var(--navy-border);padding:4px 10px;border-radius:8px;color:var(--text-sub)">INV-2041F</span>
+        </div>
+
+        <h3 style="font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--text-sub);margin-bottom:14px">Riwayat Pekerjaan (Dikategorikan)</h3>
+
+        <!-- KATEGORI: MAINTENANCE -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:.72rem;font-weight:800;color:var(--teal)">🔧 MAINTENANCE & SERVICE DARURAT</span>
+          <span class="badge badge-teal" style="font-size:.6rem">4 pekerjaan</span>
+        </div>
+        <div style="border:1px solid var(--navy-border);border-radius:14px;overflow:hidden;margin-bottom:18px">
+          <div style="padding:14px 16px;border-bottom:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Service Darurat – Panel Listrik</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Aji Radiansyah · Maintenance</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp1.200.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Troubleshooting Panel MCC</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Iqbal Alghifari · Maintenance</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp1.300.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Overhaul Trafo & Genset</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Iqbal Alghifari · Maintenance</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp2.400.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Nego Teknisi Pengganti</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Iqbal Alghifari · Maintenance · Hasil Nego</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:#60a5fa">Rp1.150.000</div>
+              <span class="badge badge-amber" style="font-size:.6rem">⏳ Proses</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KATEGORI: PEMASANGAN BARU -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:.72rem;font-weight:800;color:var(--coral)">⚡ PEMASANGAN BARU</span>
+          <span class="badge badge-coral" style="font-size:.6rem">4 pekerjaan</span>
+        </div>
+        <div style="border:1px solid var(--navy-border);border-radius:14px;overflow:hidden;margin-bottom:18px">
+          <div style="padding:14px 16px;border-bottom:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Instalasi Panel Sub-Panel Baru</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Kevin Romadhon · Pemasangan Baru</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp2.800.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Pasang Instalasi CCTV Baru</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Kevin Romadhon · Pemasangan Baru</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp1.750.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--navy-border);display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Pasang KWH Meter Baru</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Kevin Romadhon · Pemasangan Baru</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp950.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+          <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Pasang KWH Meter Prabayar</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Kevin Romadhon · Pemasangan Baru</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp450.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KATEGORI: DESAIN PROYEK -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:.72rem;font-weight:800;color:#a855f7">📐 DESAIN PROYEK</span>
+          <span class="badge" style="font-size:.6rem;background:rgba(168,85,247,.15);color:#a855f7;border:1px solid rgba(168,85,247,.3)">1 pekerjaan</span>
+        </div>
+        <div style="border:1px solid var(--navy-border);border-radius:14px;overflow:hidden">
+          <div style="padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.85rem;font-weight:700">Gambar Single-Line Diagram Panel Industri</div>
+              <div style="font-size:.7rem;color:var(--text-sub);margin-top:2px">Gesang Sukman Jaya · Desain Proyek</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:.85rem;font-weight:800;color:var(--emerald)">Rp1.500.000</div>
+              <span class="badge badge-emerald" style="font-size:.6rem">✅ Selesai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<script>
+let countdownTimer;
+let carouselIdx = 0;
+const CAROUSEL_TOTAL = 4;
+
+// ================= DATA 6 TEKNISI (WhatsApp Booking) =================
+const TEKNISI = [
+  { id: 'gesang', nama: 'Gesang Sukman Jaya', phone: '6282139543671', spesialisasi: 'Desain Proyek & Gambar Teknik', kategori: ['konsultasi'], status: 'sibuk', rating: 4.7, pengalaman: '5+ tahun', inisial: 'GS', gradient: 'linear-gradient(135deg,#a855f7,#6366f1)', tags: ['Single Line Diagram','Desain Panel'] },
+  { id: 'kevin', nama: 'Kevin Romadhon', phone: '6281298152320', spesialisasi: 'Pemasangan Baru — Panel & Instalasi', kategori: ['instalasi'], status: 'online', rating: 4.9, pengalaman: '4 tahun', inisial: 'KR', gradient: 'linear-gradient(135deg,var(--coral),#ff9a38)', tags: ['Panel Baru','Instalasi Rumah'] },
+  { id: 'bambang', nama: 'Bambang Maulana', phone: '6289668988190', spesialisasi: 'Maintenance & Service — Panel Surya & Inverter Solar', kategori: ['maintenance','instalasi'], status: 'online', rating: 4.9, pengalaman: '6 tahun', inisial: 'BM', gradient: 'linear-gradient(135deg,#4CADFC,#7B219E)', tags: ['Panel Surya','Inverter'] },
+  { id: 'aditya', nama: 'Aditya Darmawan', phone: '6281413448823', spesialisasi: 'Maintenance & Service — Motor Listrik 3-Phase', kategori: ['maintenance','perbaikan'], status: 'online', rating: 4.9, pengalaman: '7 tahun', inisial: 'AD', gradient: 'linear-gradient(135deg,var(--teal),#FF8AAE)', tags: ['Motor 3-Phase','Panel/MCC'] },
+  { id: 'iqbal', nama: 'Iqbal Alghifari', phone: '628990389767', spesialisasi: 'Maintenance & Service — AC & HVAC', kategori: ['maintenance','perbaikan'], status: 'sibuk', rating: 4.9, pengalaman: '5 tahun', inisial: 'IA', gradient: 'linear-gradient(135deg,#55ECF7,#D6A936)', tags: ['AC/HVAC','Troubleshooting'] },
+  { id: 'aji', nama: 'Aji Radiansyah', phone: '6283878432484', spesialisasi: 'Maintenance & Service Darurat', kategori: ['perbaikan','maintenance'], status: 'online', rating: 4.8, pengalaman: '6 tahun', inisial: 'AR', gradient: 'linear-gradient(135deg,var(--teal),#0099d4)', tags: ['Darurat 24/7','Perbaikan Cepat'] }
+];
+const STATUS_LABEL = { online: 'Tersedia', sibuk: 'Sibuk', tersedia: 'Tersedia', offline: 'Offline' };
+const STATUS_EMOJI = { online: '🟢', sibuk: '🟡', tersedia: '🟢', offline: '🔴' };
+let orderData = { nama:'', alamat:'', layanan:'', tanggal:'', keterangan:'' };
+
+function renderStars(rating) {
+  const full = Math.round(rating);
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    html += i <= full ? '<span class="star">⭐</span>' : '<span class="star-empty">☆</span>';
+  }
+  return html;
+}
+
+function renderTeknisi(filter) {
+  filter = filter || 'semua';
+  const grid = document.getElementById('tech-grid');
+  const list = filter === 'semua' ? TEKNISI : TEKNISI.filter(t => t.kategori.includes(filter));
+  if (!grid) return;
+  if (list.length === 0) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text-muted);font-size:.85rem">Belum ada teknisi untuk kategori ini.</div>'; return; }
+  grid.innerHTML = list.map(t => `
+    <div class="tech-card">
+      <div class="tech-top">
+        <div class="tech-avatar" style="background:${t.gradient}">${t.inisial}</div>
+        <div class="tech-name-row">
+          <div class="tech-name">${t.nama}</div>
+          <div class="tech-role">Teknisi</div>
+          <span class="tech-status status-${t.status}"><span class="status-dot"></span>${STATUS_EMOJI[t.status] || ''} ${STATUS_LABEL[t.status]}</span>
+        </div>
+      </div>
+      <div class="tech-spec">${t.spesialisasi}</div>
+      <div class="tech-spec-label">Spesialisasi:</div>
+      <ul class="tech-tags">${t.tags.map(tag => `<li class="tech-tag">${tag}</li>`).join('')}</ul>
+      <div class="tech-meta-row">
+        <div class="tech-meta stars">${renderStars(t.rating)}<span class="rating-num">(${t.rating.toFixed(1)})</span></div>
+        <div class="tech-meta">🛠️ ${t.pengalaman}</div>
+      </div>
+      <button class="btn-wa" onclick="pesanTeknisi('${t.id}')">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.3.38-.43.51-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.38-.24.64-.14.26.1 1.66.78 1.95.93.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+        Pesan via WhatsApp
+      </button>
+    </div>
+  `).join('');
+}
+
+function filterTeknisi(filter, btn) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderTeknisi(filter);
+}
+
+function buildPesanWA(teknisi, data) {
+  data = data || {};
+  return "Halo Kak " + teknisi.nama + ",\n\n" +
+    "Saya ingin melakukan pemesanan layanan teknisi.\n\n" +
+    "Nama: " + (data.nama || '') + "\n" +
+    "Alamat: " + (data.alamat || '') + "\n" +
+    "Jenis layanan: " + (data.layanan || '') + "\n" +
+    "Tanggal pengerjaan: " + (data.tanggal || '') + "\n" +
+    "Keluhan/Keterangan: " + (data.keterangan || '') + "\n\n" +
+    "Mohon informasi lebih lanjut. Terima kasih.";
+}
+
+function pesanTeknisi(id, data) {
+  const teknisi = TEKNISI.find(t => t.id === id);
+  if (!teknisi) return;
+  const pesan = buildPesanWA(teknisi, data);
+  window.open('https://wa.me/' + teknisi.phone + '?text=' + encodeURIComponent(pesan), '_blank');
+}
+
+function goToTeknisi() {
+  showPage('order');
+  setTimeout(() => {
+    const el = document.getElementById('pilih-teknisi');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 50);
+}
+
+// ---- LIGHT / DARK MODE ----
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const isLight = theme === 'light';
+  const icon = isLight ? '☀️' : '🌙';
+  const label = isLight ? '☀️ Mode Terang' : '🌙 Mode Gelap';
+  const dTop = document.getElementById('theme-toggle-desktop');
+  const mTop = document.getElementById('theme-toggle-mobile-top');
+  const mLabel = document.getElementById('mobile-theme-label');
+  const mIcon = document.getElementById('mobile-theme-icon');
+  if (dTop) dTop.textContent = icon;
+  if (mTop) mTop.textContent = icon;
+  if (mLabel) mLabel.textContent = label;
+  if (mIcon) mIcon.textContent = icon;
+  try { localStorage.setItem('ec-theme', theme); } catch(e) {}
+}
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  applyTheme(current === 'light' ? 'dark' : 'light');
+}
+(function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem('ec-theme'); } catch(e) {}
+  if (!saved) {
+    saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+  }
+  applyTheme(saved);
+})();
+
+// ---- MOBILE HAMBURGER MENU ----
+function toggleMobileMenu() {
+  document.getElementById('hamburger-btn').classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('hamburger-btn').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+function mobileNav(target) {
+  closeMobileMenu();
+  showPage('order');
+  showSubView('sub-beranda', 'btn-beranda');
+  setTimeout(() => {
+    if (target === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const ids = { layanan: 'layanan', teknisi: 'pilih-teknisi', testimoni: 'testimoni', kontak: 'kontak' };
+    const el = document.getElementById(ids[target]);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+// ---- PAGE NAV ----
+function showPage(p) {
+  closeMobileMenu();
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.getElementById('nav-'+p).classList.add('active');
+  if(p === 'dashboard') initCarousel();
+}
+
+// ---- SUB VIEW ----
+function showSubView(id, btnId) {
+  document.querySelectorAll('.sub-view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.bottom-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btnId) document.getElementById(btnId).classList.add('active');
+}
+
+// ---- PILL SELECT ----
+function pilihPill(el, groupId, selectId, val) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  const sel = document.getElementById(selectId);
+  if(sel) Array.from(sel.options).forEach(o => { if(o.text.trim() === val.trim()) sel.value = o.value; });
+}
+
+// ---- PILIH LAYANAN CARD ----
+function pilihLayanan(el, nama) {
+  document.querySelectorAll('.layanan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const sel = document.getElementById('select-kategori');
+  Array.from(sel.options).forEach(o => { if(o.text.trim().includes(nama.split('(')[0].trim())) sel.value = o.value; });
+}
+
+// ---- PROSES ORDER ----
+function prosesOrder(e) {
+  e.preventDefault();
+  const d = document.getElementById('select-deadline').value;
+  const selKategori = document.getElementById('select-kategori');
+  orderData = {
+    nama: document.getElementById('input-nama').value.trim(),
+    alamat: document.getElementById('input-lokasi').value.trim(),
+    layanan: selKategori.options[selKategori.selectedIndex].text.trim(),
+    tanggal: document.getElementById('select-deadline').options[document.getElementById('select-deadline').selectedIndex].text.trim(),
+    keterangan: document.getElementById('input-deskripsi').value.trim()
+  };
+  showSubView('sub-loading', null);
+  setTimeout(() => {
+    showSubView('sub-match', null);
+    const aksi = document.getElementById('container-aksi-nego');
+    if(d === 'darurat') {
+      aksi.innerHTML = `
+        <div style="background:rgba(255,90,56,.1);border:1px solid rgba(255,90,56,.2);border-radius:12px;padding:12px 16px;font-size:.8rem;color:var(--coral);font-weight:700;margin-bottom:12px;text-align:center">
+          🚨 Status Darurat — Tarif Terkunci
+        </div>
+        <button onclick="konfirmasiPas()" class="btn-emerald">Terima & Amankan Dana (Harga Pas)</button>`;
+    } else {
+      aksi.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <button onclick="konfirmasiNego(1200000)" class="btn-emerald" style="padding:12px">Terima (Deal Rp1.200.000)</button>
+          <button onclick="showSubView('sub-chat','btn-chat')" class="btn-secondary" style="padding:12px">Tawar & Chat</button>
+        </div>`;
+    }
+  }, 3000);
+}
+
+function konfirmasiPas() {
+  document.getElementById('konten-pesanan').innerHTML = `
+    <div style="background:rgba(255,90,56,.08);border:1px solid rgba(255,90,56,.2);border-radius:14px;padding:16px">
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--coral);margin-bottom:6px">STATUS: LAYANAN DARURAT</div>
+      <p style="font-size:.85rem;color:var(--text-sub)">Teknisi <strong style="color:var(--text-main)">Aji Radiansyah</strong> sedang mempersiapkan peralatan menuju lokasi Anda.</p>
+    </div>`;
+  showSubView('sub-pesanan','btn-pesanan');
+  pesanTeknisi('aji', orderData);
+}
+
+function konfirmasiNego(harga) {
+  document.getElementById('konten-pesanan').innerHTML = `
+    <div style="background:rgba(0,196,140,.08);border:1px solid rgba(0,196,140,.2);border-radius:14px;padding:16px">
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--emerald);margin-bottom:6px">✅ PENGERJAAN DISETUJUI</div>
+      <p style="font-size:.9rem;font-weight:800;color:var(--emerald)">Total Biaya: Rp ${harga.toLocaleString('id-ID')}</p>
+    </div>`;
+  showSubView('sub-pesanan','btn-pesanan');
+  pesanTeknisi(harga === 1150000 ? 'iqbal' : 'aji', orderData);
+}
+
+function kirimTawaran() {
+  const nominal = document.getElementById('input-harga-tawar').value;
+  const durasi = parseInt(document.getElementById('input-durasi-timer').value);
+  if(!nominal || nominal <= 0) { alert('Masukkan nominal penawaran!'); return; }
+  document.getElementById('chat-tawaran-user').style.display = 'flex';
+  document.getElementById('teks-tawaran').textContent = 'Saya menawarkan harga Rp ' + parseInt(nominal).toLocaleString('id-ID');
+  const cd = document.getElementById('countdown-display');
+  cd.style.display = 'inline-block';
+  document.getElementById('btn-skip').style.display = 'inline-block';
+  let sisa = durasi;
+  clearInterval(countdownTimer);
+  countdownTimer = setInterval(() => {
+    const m = Math.floor(sisa/60), s = sisa%60;
+    cd.textContent = 'Sisa: ' + (m<10?'0':'') + m + ':' + (s<10?'0':'') + s;
+    if(sisa <= 0) { clearInterval(countdownTimer); simulasiTimeout(); }
+    sisa--;
+  }, 1000);
+}
+
+function simulasiTimeout() {
+  clearInterval(countdownTimer);
+  document.getElementById('countdown-display').style.display = 'none';
+  document.getElementById('btn-skip').style.display = 'none';
+  document.getElementById('chat-tawaran-user').style.display = 'none';
+  showSubView('sub-loading', null);
+  setTimeout(() => {
+    showSubView('sub-match', null);
+    document.getElementById('container-aksi-nego').innerHTML = `
+      <div style="background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);border-radius:12px;padding:12px 16px;font-size:.8rem;color:#60a5fa;text-align:center;margin-bottom:12px">
+        Teknisi Pengganti: <strong>Iqbal Alghifari</strong>
+      </div>
+      <button onclick="konfirmasiNego(1150000)" class="btn-emerald">Terima Iqbal & Amankan Dana</button>`;
+  }, 3000);
+}
+
+// ---- CAREER CENTER ----
+function showCareerSection(id) {
+  document.getElementById('career-tes-kompetensi').style.display = 'none';
+  document.getElementById('career-akademi').style.display = 'none';
+  document.getElementById('career-'+id).style.display = 'block';
+  if(id === 'tes-kompetensi') pilihTes('dasar-listrik');
+  document.getElementById('career-'+id).scrollIntoView({behavior:'smooth'});
+}
+
+// ---- BANK SOAL ----
+const bankSoal = {
+  'dasar-listrik': {
+    judul: 'Dasar-Dasar Listrik',
+    soal: [
+      { q:'Apa satuan dari tegangan listrik?', op:['Ampere (A)','Volt (V)','Ohm (Ω)','Watt (W)'], jwb:1, penj:'Volt (V) adalah satuan tegangan listrik, menyatakan beda potensial antara dua titik. Satuan ini dinamai dari Alessandro Volta.' },
+      { q:'Sebuah resistor 10Ω dialiri arus 2A. Berapa tegangan di ujung-ujungnya?', op:['5 V','12 V','20 V','0.2 V'], jwb:2, penj:'Menggunakan Hukum Ohm: V = I × R = 2A × 10Ω = 20 Volt.' },
+      { q:'Apa yang dimaksud dengan arus listrik?', op:['Tekanan listrik per satuan waktu','Aliran muatan listrik per satuan waktu','Energi yang disimpan kapasitor','Hambatan terhadap aliran elektron'], jwb:1, penj:'Arus listrik adalah aliran muatan listrik (elektron) per satuan waktu, diukur dalam Ampere (A). Rumus: I = Q/t.' },
+      { q:'Dua resistor 6Ω dan 3Ω dipasang paralel. Berapa resistansi totalnya?', op:['9 Ω','2 Ω','3 Ω','0.5 Ω'], jwb:1, penj:'Paralel: 1/R = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 → R = 2Ω.' },
+      { q:'Satuan daya listrik adalah...', op:['Joule','Volt','Watt','Ampere'], jwb:2, penj:'Daya listrik diukur dalam Watt (W). Rumus: P = V × I = I²R = V²/R.' }
+    ]
+  },
+  'elektronika': {
+    judul: 'Elektronika Dasar',
+    soal: [
+      { q:'Komponen elektronika yang hanya mengalirkan arus satu arah adalah...', op:['Resistor','Kapasitor','Dioda','Induktor'], jwb:2, penj:'Dioda adalah komponen semikonduktor yang hanya mengalirkan arus dari anoda ke katoda (forward bias). Digunakan sebagai penyearah (rectifier).' },
+      { q:'Fungsi kapasitor dalam rangkaian adalah...', op:['Mengubah AC ke DC','Menyimpan energi dalam medan listrik','Memperkuat sinyal','Membatasi arus'], jwb:1, penj:'Kapasitor menyimpan energi dalam medan listrik di antara dua pelat konduktor. Fungsi lain: filter, coupling, decoupling.' },
+      { q:'Transistor NPN dalam keadaan saturasi berperan sebagai...', op:['Sakelar terbuka','Amplifier linier','Sakelar tertutup','Osilator'], jwb:2, penj:'Transistor NPN saturasi → collector-emitter short circuit → sakelar tertutup (ON). Kondisi ini digunakan dalam rangkaian digital dan driver relay.' },
+      { q:'Nilai resistor dengan kode warna: Merah-Merah-Oranye-Emas adalah...', op:['2,2 kΩ ±5%','22 kΩ ±5%','220 Ω ±5%','22 Ω ±10%'], jwb:1, penj:'Merah=2, Merah=2, Oranye=×1000 → 22×1000 = 22.000Ω = 22kΩ. Emas = toleransi ±5%.' },
+      { q:'Op-Amp ideal memiliki impedansi masukan...', op:['Nol','Sangat kecil (100Ω)','Sangat besar (tak terhingga)','Sama dengan impedansi keluaran'], jwb:2, penj:'Op-Amp ideal: Zin = ∞, Zout = 0, penguatan open-loop = ∞, bandwidth = ∞.' }
+    ]
+  },
+  'arus-lemah': {
+    judul: 'Sistem Arus Lemah',
+    soal: [
+      { q:'Tegangan kerja sistem CCTV IP Camera umumnya adalah...', op:['220VAC','48VDC (PoE)','12VDC','5VDC'], jwb:1, penj:'IP Camera modern umumnya menggunakan PoE (Power over Ethernet) 48VDC sesuai standar IEEE 802.3af/at, sehingga hanya butuh satu kabel CAT5e/6.' },
+      { q:'Protokol komunikasi yang umum digunakan pada PLC adalah...', op:['USB 3.0','Modbus RTU/TCP','Bluetooth 5.0','Wi-Fi 6'], jwb:1, penj:'Modbus RTU (RS-485) dan Modbus TCP (Ethernet) adalah protokol paling umum di industri untuk komunikasi PLC, sensor, dan HMI. Lainnya: PROFIBUS, PROFINET, EtherNet/IP.' },
+      { q:'Kabel yang digunakan untuk jaringan LAN structured cabling adalah...', op:['NYM 2×2.5mm²','Coaxial RG-6','UTP CAT6','Twisted pair 0.6mm'], jwb:2, penj:'UTP CAT6 (Unshielded Twisted Pair Category 6) mendukung kecepatan gigabit hingga 100 meter. CAT6A mendukung 10Gbps.' },
+      { q:'Fire alarm addressable vs conventional — perbedaan utamanya adalah...', op:['Harga detector','Addressable dapat identifikasi lokasi per titik detector','Warna kabel','Tegangan supply'], jwb:1, penj:'Sistem addressable mengidentifikasi detector mana yang aktif secara spesifik (per titik). Conventional hanya bisa per zona/loop, tidak per titik.' },
+      { q:'Arduino Uno menggunakan mikrokontroler...', op:['ESP32','STM32','ATmega328P','PIC16F877A'], jwb:2, penj:'Arduino Uno menggunakan mikrokontroler ATmega328P dari Atmel (Microchip). Clock 16MHz, 32KB flash, 2KB SRAM, 14 pin digital, 6 pin analog.' }
+    ]
+  },
+  'arus-kuat': {
+    judul: 'Sistem Arus Kuat',
+    soal: [
+      { q:'MCB (Miniature Circuit Breaker) berfungsi untuk...', op:['Mengukur arus listrik','Proteksi beban lebih dan short circuit','Menaikkan tegangan','Menyimpan energi listrik'], jwb:1, penj:'MCB proteksi terhadap overload (bimetal thermal) dan short circuit (electromagnet). Harus dipilih sesuai arus nominal beban dan kabel.' },
+      { q:'Grounding/arde pada instalasi listrik berfungsi untuk...', op:['Meningkatkan daya listrik','Mencegah korsleting','Keselamatan manusia dari bahaya tegangan sentuh & petir','Menghemat energi listrik'], jwb:2, penj:'Grounding menyediakan jalur impedansi rendah ke bumi, memastikan tegangan sentuh aman (< 50VAC) saat terjadi gangguan isolasi.' },
+      { q:'Metode starting motor yang paling hemat energi adalah...', op:['DOL (Direct On Line)','Bintang-Segitiga','Soft Starter','VFD / Inverter'], jwb:3, penj:'VFD (Variable Frequency Drive) adalah starting paling efisien karena dapat mengatur kecepatan dan torsi motor secara presisi, mengurangi arus starting dan menghemat energi operasional.' },
+      { q:'PUIL (Persyaratan Umum Instalasi Listrik) edisi terbaru yang berlaku adalah...', op:['PUIL 1987','PUIL 2000','PUIL 2011','PUIL 2020'], jwb:2, penj:'PUIL 2011 (SNI 0225:2011) adalah edisi terbaru yang wajib digunakan sebagai acuan instalasi listrik di Indonesia.' },
+      { q:'Apa itu power factor (cos φ) dan nilai idealnya?', op:['Rasio tegangan, nilai ideal 0','Rasio daya aktif terhadap daya semu, nilai ideal 1','Rasio arus terhadap tegangan, nilai ideal 0.5','Efisiensi transformator, nilai ideal 100%'], jwb:1, penj:'Power factor = P/S = cos φ. Nilai 1 (unity) berarti semua daya terserap sebagai daya aktif. Di bawah 0.85 biasanya kena denda PLN untuk industri.' }
+    ]
+  },
+  'plc': {
+    judul: 'PLC & Otomasi Industri',
+    soal: [
+      { q:'PLC singkatan dari...', op:['Power Line Controller','Programmable Logic Controller','Process Load Calculator','Portable Logic Circuit'], jwb:1, penj:'PLC = Programmable Logic Controller. Komputer industri yang diprogram untuk mengontrol proses otomatis, menggantikan relay-relay elektromagnetik.' },
+      { q:'Bahasa pemrograman PLC yang paling umum digunakan sesuai standar IEC 61131-3 adalah...', op:['Python','C++','Ladder Diagram (LD)','JavaScript'], jwb:2, penj:'Ladder Diagram (LD) adalah bahasa paling populer karena mengadopsi logika relay konvensional sehingga mudah dipahami teknisi lama. Standar IEC 61131-3 juga mendefinisikan FBD, ST, IL, SFC.' },
+      { q:'Input digital pada PLC menerima sinyal...', op:['4-20mA analog','0/1 (ON/OFF)','0-10V variabel','Sinyal AC 220V saja'], jwb:1, penj:'Input digital PLC membaca status ON (24VDC/220VAC) atau OFF (0V). Contoh: sensor proximity, limit switch, pushbutton.' },
+      { q:'Fungsi timer TON pada PLC adalah...', op:['Timer yang selalu ON','Timer ON-delay: output aktif setelah waktu tunda','Timer yang menghitung OFF','Osilator pulsa'], jwb:1, penj:'TON (Timer ON-delay): output aktif setelah input ON selama waktu preset (PT). Berguna untuk penundaan starting motor, cooling period, dll.' },
+      { q:'SCADA singkatan dari...', op:['System Control and Data Acquisition','Supervisory Control And Data Acquisition','Software Controller for Analog Devices','Sequential Control Automation Data'], jwb:1, penj:'SCADA = Supervisory Control And Data Acquisition. Sistem monitoring dan kontrol terdistribusi yang mengumpulkan data dari lapangan dan memungkinkan kontrol dari ruang kendali.' }
+    ]
+  },
+  'k3': {
+    judul: 'K3 Listrik & Keselamatan',
+    soal: [
+      { q:'APD minimum yang WAJIB dipakai saat bekerja dengan listrik adalah...', op:['Helm dan sepatu biasa','Sarung tangan insulating + safety shoes + kacamata + helm','Hanya masker','Hanya sarung tangan kain'], jwb:1, penj:'APD K3 Listrik minimal: sarung tangan insulating, safety shoes ESD, kacamata safety, helm non-konduktif, baju lengan panjang.' },
+      { q:'LOTO singkatan dari dan berfungsi untuk...', op:['Light Out Turn Off – mematikan lampu','Lockout-Tagout – mengunci dan menandai panel agar tidak dinyalakan saat perbaikan','Lock Out Turn Off – prosedur darurat','Level Out Tension Off – mengukur tegangan'], jwb:1, penj:'LOTO = Lockout-Tagout. Prosedur wajib sebelum maintenance: matikan sumber energi, kunci panel (lockout), pasang tag peringatan (tagout). Mencegah energi berbahaya tiba-tiba.' },
+      { q:'Arus listrik berapa yang sudah berbahaya bagi manusia?', op:['> 100 mA','> 500 mA','> 10 mA (bisa berbahaya, > 50mA fatal)','> 1 Ampere saja yang berbahaya'], jwb:2, penj:'1mA = terasa getaran. 10mA = tidak bisa lepas. 50mA = fibrilasi jantung. 100mA ke atas = fatal. Bahaya tergantung jalur arus, durasi, dan kondisi tubuh.' },
+      { q:'Sebelum mengerjakan panel listrik bertegangan, wajib dilakukan...', op:['Langsung buka panel dengan cepat','LOTO + tes tegangan + pastikan zero energy','Minta izin atasan saja','Pakai sarung tangan karet biasa'], jwb:1, penj:'Prosedur: (1) Identifikasi sumber energi, (2) Matikan semua sumber, (3) LOTO, (4) Discharge kapasitor, (5) Verifikasi zero energy dengan voltmeter.' },
+      { q:'Apabila menemukan orang tersengat listrik, langkah PERTAMA adalah...', op:['Langsung pegang korban dan tarik','Putuskan sumber listrik TERLEBIH DAHULU, baru tolong korban','Siramkan air ke korban','Berteriak minta tolong tanpa tindakan'], jwb:1, penj:'JANGAN sentuh korban sebelum listrik diputus! Matikan sumber (cabut steker / trip MCB). Baru tolong korban, cek respons, lakukan RJP jika perlu, hubungi 119.' }
+    ]
+  }
+};
+
+let tesSaatIni = null;
+let idxSoal = 0;
+let jawabanDipilih = false;
+let jumlahBenar = 0;
+
+function pilihTes(id) {
+  const group = document.getElementById('pill-tes');
+  group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  const clickedPill = group.querySelector(`[onclick="pilihTes('${id}')"]`);
+  if(clickedPill) clickedPill.classList.add('active');
+  tesSaatIni = bankSoal[id];
+  idxSoal = 0;
+  jawabanDipilih = false;
+  jumlahBenar = 0;
+  document.getElementById('tes-judul').textContent = tesSaatIni.judul;
+  tampilSoal();
+}
+
+function tampilSoal() {
+  const data = tesSaatIni.soal[idxSoal];
+  const total = tesSaatIni.soal.length;
+  document.getElementById('soal-text').textContent = data.q;
+  document.getElementById('tes-progress').textContent = `Soal ${idxSoal+1} / ${total}`;
+  document.getElementById('tes-bar').style.width = `${((idxSoal+1)/total)*100}%`;
+  document.getElementById('hasil-soal').style.display = 'none';
+  document.getElementById('btn-next-wrap').style.display = 'none';
+  jawabanDipilih = false;
+  const opsi = document.getElementById('opsi-container');
+  opsi.innerHTML = '';
+  data.op.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'test-option';
+    btn.textContent = `${String.fromCharCode(65+i)}. ${o}`;
+    btn.onclick = () => pilihJawaban(i, data.jwb, data.penj, btn);
+    opsi.appendChild(btn);
+  });
+}
+
+function pilihJawaban(idx, jwb, penj, el) {
+  if(jawabanDipilih) return;
+  jawabanDipilih = true;
+  document.querySelectorAll('.test-option').forEach((b,i) => {
+    if(i === jwb) b.classList.add('correct');
+    else if(i === idx && idx !== jwb) b.classList.add('wrong');
+    b.onclick = null;
+  });
+  const hasil = document.getElementById('hasil-soal');
+  hasil.style.display = 'block';
+  if(idx === jwb) {
+    jumlahBenar++;
+    hasil.style.background = 'rgba(0,196,140,.1)'; hasil.style.border = '1px solid rgba(0,196,140,.25)'; hasil.style.color = 'var(--emerald)';
+    hasil.innerHTML = `<strong>✅ Benar!</strong><br><span style="color:var(--text-sub)">${penj}</span>`;
+  } else {
+    hasil.style.background = 'rgba(255,90,56,.08)'; hasil.style.border = '1px solid rgba(255,90,56,.2)'; hasil.style.color = 'var(--coral)';
+    hasil.innerHTML = `<strong>❌ Kurang Tepat</strong><br><span style="color:var(--text-sub)">${penj}</span>`;
+  }
+  document.getElementById('btn-next-wrap').style.display = 'block';
+  if(idxSoal === tesSaatIni.soal.length - 1) {
+    document.querySelector('#btn-next-wrap button').textContent = '🏁 Lihat Nilai';
+    document.querySelector('#btn-next-wrap button').onclick = () => {
+      const total = tesSaatIni.soal.length;
+      const nilai = Math.round((jumlahBenar / total) * 100);
+      let predikat, warna;
+      if(nilai >= 90) { predikat = 'Sangat Kompeten 🏆'; warna = 'var(--emerald)'; }
+      else if(nilai >= 70) { predikat = 'Kompeten ✅'; warna = 'var(--teal)'; }
+      else if(nilai >= 50) { predikat = 'Cukup, Perlu Latihan Lagi 📘'; warna = 'var(--amber)'; }
+      else { predikat = 'Perlu Belajar Lagi dari Dasar 📖'; warna = 'var(--coral)'; }
+      document.getElementById('soal-text').textContent = '🎉 Tes Selesai!';
+      document.getElementById('opsi-container').innerHTML = `
+        <div style="text-align:center;padding:20px 0">
+          <div style="font-size:2.6rem;font-weight:900;color:${warna}">${nilai}</div>
+          <div style="font-size:.8rem;color:var(--text-sub);margin:4px 0 12px">Skor dari ${total} soal · ${jumlahBenar} jawaban benar</div>
+          <span class="badge" style="font-size:.78rem;padding:6px 16px;background:${warna}22;color:${warna};border:1px solid ${warna}55">${predikat}</span>
+        </div>`;
+      document.getElementById('hasil-soal').style.display = 'none';
+      document.getElementById('btn-next-wrap').style.display = 'none';
+    };
+  }
+}
+
+function nextSoal() {
+  if(idxSoal < tesSaatIni.soal.length - 1) {
+    idxSoal++;
+    tampilSoal();
+  }
+}
+
+// ---- MODAL MATERI ----
+const materiContent = {
+  'ohm': '<span class="badge badge-teal" style="margin-bottom:16px">Materi Dasar</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">⚡ Hukum Ohm & Kirchhoff</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px"><strong style="color:var(--text-main)">Hukum Ohm:</strong> Tegangan (V) = Arus (I) × Hambatan (R). Semakin besar hambatan, makin kecil arus untuk tegangan sama.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px"><strong style="color:var(--text-main)">KVL (Kirchhoff\'s Voltage Law):</strong> Jumlah tegangan dalam satu loop tertutup = 0. Penting untuk analisis rangkaian seri.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:16px"><strong style="color:var(--text-main)">KCL (Kirchhoff\'s Current Law):</strong> Jumlah arus masuk = Jumlah arus keluar pada satu node. Penting untuk analisis rangkaian paralel.</p><div style="background:var(--navy-mid);border-radius:12px;padding:16px;font-family:monospace;font-size:.82rem;color:var(--teal)">V = I × R &nbsp;|&nbsp; P = V × I &nbsp;|&nbsp; P = I²R &nbsp;|&nbsp; P = V²/R</div>',
+  'plc': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">💻 PLC — Programmable Logic Controller</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">PLC adalah komputer industri yang dirancang tahan lingkungan keras untuk menggantikan ribuan relay elektromagnetik.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Merek populer:</strong> Siemens (S7-1200/1500), Omron (CP/CJ), Schneider (M221/M340), Allen-Bradley (CompactLogix)</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Bahasa IEC 61131-3:</strong> Ladder Diagram, Function Block Diagram (FBD), Structured Text (ST), Instruction List (IL), Sequential Function Chart (SFC)</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8"><strong style="color:var(--text-main)">Siklus scan PLC:</strong> Input scan → Eksekusi program → Output scan → Komunikasi → Diagnostik → Ulang.</p>',
+  'arduino': '<span class="badge badge-teal" style="margin-bottom:16px">Pemula – Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🤖 Arduino & Mikrokontroler</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Arduino adalah platform open-source berbasis ATmega328P yang ideal untuk belajar elektronika dan IoT.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Spesifikasi Uno:</strong> 16MHz, 32KB flash, 14 digital I/O, 6 analog input, komunikasi UART/SPI/I2C</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Contoh proyek:</strong> Monitoring suhu, kontrol relay otomatis, sistem alarm, display LCD, kontrol motor DC/servo.</p><div style="background:var(--navy-mid);border-radius:12px;padding:14px;font-family:monospace;font-size:.78rem;color:var(--teal);white-space:pre">void setup() { &nbsp;&nbsp;pinMode(13, OUTPUT); }<br>void loop() { &nbsp;&nbsp;digitalWrite(13, HIGH); &nbsp;&nbsp;delay(1000); &nbsp;&nbsp;digitalWrite(13, LOW); &nbsp;&nbsp;delay(1000); }</div>',
+
+  'komponen': '<span class="badge badge-teal" style="margin-bottom:16px">Materi Dasar</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🔬 Komponen Elektronika Dasar</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Resistor:</strong> menahan arus, nilainya dibaca dari kode warna (cth: coklat-hitam-merah = 1 kΩ).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Kapasitor:</strong> menyimpan muatan listrik sementara, sering dipakai untuk filter & penyimpan energi sesaat.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Induktor:</strong> menyimpan energi dalam medan magnet, dipakai pada trafo & filter frekuensi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Dioda:</strong> hanya melewatkan arus satu arah — dasar dari penyearah (rectifier).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8"><strong style="color:var(--text-main)">Transistor & MOSFET:</strong> berfungsi sebagai saklar elektronik atau penguat sinyal — fondasi semua perangkat digital modern.</p>',
+
+  'instalasi': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🏠 Instalasi Listrik Dasar</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Acuan utama instalasi rumah tangga di Indonesia adalah <strong style="color:var(--text-main)">PUIL 2011</strong> (Persyaratan Umum Instalasi Listrik).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Jenis kabel:</strong> NYA (kabel tunggal, dalam pipa), NYM (berisolasi ganda, bisa ditanam tembok), NYY (untuk outdoor/bawah tanah).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Grounding (pembumian):</strong> wajib untuk semua titik agar arus bocor mengalir ke tanah, bukan ke tubuh manusia.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Setiap titik stop kontak & lampu wajib diamankan oleh MCB sesuai kapasitas bebannya agar tidak terjadi overheating kabel.</p>',
+
+  'panel': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🛡️ Panel & Proteksi</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">MCB (Miniature Circuit Breaker):</strong> pengaman arus lebih untuk instalasi rumah, otomatis trip saat beban berlebih.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">MCCB:</strong> versi kapasitas besar dari MCB, dipakai di panel industri.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">ELCB/RCCB:</strong> mendeteksi arus bocor ke ground (ground fault) untuk mencegah sengatan listrik.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Koordinasi proteksi yang baik memastikan hanya pengaman terdekat ke gangguan yang trip, bukan seluruh panel ikut mati (selektivitas).</p>',
+
+  'motor': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🔌 Motor Listrik & Kontrol</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Motor AC vs DC:</strong> motor AC (induksi 3-fasa) umum di industri karena kuat & minim perawatan; motor DC mudah diatur kecepatannya.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">DOL Starter (Direct-On-Line):</strong> motor dinyalakan langsung pada tegangan penuh — sederhana tapi arus start tinggi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Starter Bintang-Segitiga (Star-Delta):</strong> menurunkan arus start dengan menyambung lilitan motor bintang dulu, lalu segitiga.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Soft starter & VFD/inverter memberi start lebih halus dan kendali kecepatan motor yang presisi.</p>',
+
+  'kwh': '<span class="badge badge-teal" style="margin-bottom:16px">Materi Dasar</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📟 KWH Meter & Tarif</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">KWH meter</strong> mengukur energi listrik yang terpakai dalam satuan kilo-watt-hour (kWh).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Jenis meter:</strong> analog (piringan berputar), digital pascabayar, dan prabayar/token (isi pulsa listrik).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Daya aktif vs reaktif:</strong> daya aktif (kW) yang benar-benar dipakai untuk kerja; daya reaktif (kVAR) terkait medan magnet pada motor/trafo.</p><div style="background:var(--navy-mid);border-radius:12px;padding:14px;font-family:monospace;font-size:.82rem;color:var(--teal)">Energi (kWh) = Daya (kW) × Waktu (jam)</div>',
+
+  'k3': '<span class="badge badge-coral" style="margin-bottom:16px">Wajib Diketahui</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🦺 K3 Listrik & Keselamatan</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Bahaya listrik utama: sengatan listrik, arc flash (ledakan busur api), dan kebakaran akibat korsleting.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">APD wajib:</strong> sarung tangan isolasi, sepatu safety, kacamata pelindung, dan tester tegangan sebelum bekerja.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">LOTO (Lock-Out Tag-Out):</strong> prosedur mengunci & memberi label sumber listrik yang dimatikan agar tidak dinyalakan ulang saat ada orang bekerja.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Selalu terapkan 5 aturan keselamatan: bebaskan tegangan, amankan, uji bebas tegangan, grounding, dan beri batas area kerja sebelum mulai.</p>',
+
+  'gambar': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📐 Gambar Teknik Listrik</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Gambar teknik listrik memakai simbol standar internasional (<strong style="color:var(--text-main)">IEC</strong> umum di Eropa/Indonesia, <strong style="color:var(--text-main)">NEMA</strong> umum di Amerika).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Single-Line Diagram:</strong> menyederhanakan sistem 3-fasa menjadi satu garis untuk melihat alur distribusi daya secara keseluruhan.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Wiring Diagram:</strong> menunjukkan koneksi fisik kabel antar komponen secara detail untuk keperluan instalasi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8"><strong style="color:var(--text-main)">Ladder Diagram:</strong> dipakai khusus untuk menggambar logika kontrol PLC, menyerupai bentuk tangga.</p>',
+
+  'elektronika-analog': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📶 Elektronika Analog</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Sinyal analog berubah secara kontinu (tidak diskrit seperti digital), contohnya sinyal audio dan sensor suhu analog.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Filter:</strong> menyaring frekuensi tertentu (low-pass, high-pass, band-pass) menggunakan kombinasi resistor-kapasitor-induktor.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Amplifier (penguat):</strong> memperbesar amplitudo sinyal lemah agar bisa diproses lebih jauh.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8"><strong style="color:var(--text-main)">Power supply & rectifier:</strong> mengubah listrik AC dari PLN menjadi DC stabil untuk perangkat elektronik.</p>',
+
+  'cctv-jaringan': '<span class="badge badge-teal" style="margin-bottom:16px">Pemula</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📷 CCTV & Jaringan</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Kamera Analog vs IP:</strong> analog mengirim sinyal video langsung ke DVR; kamera IP mengirim data digital melalui jaringan ke NVR.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Kabel CAT6:</strong> standar kabel jaringan untuk kamera IP, mendukung transfer data cepat & stabil.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">PoE (Power over Ethernet):</strong> satu kabel jaringan sekaligus mengalirkan daya listrik ke kamera, memudahkan instalasi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Remote viewing memungkinkan pemantauan dari HP/PC lewat aplikasi dengan koneksi internet.</p>',
+
+  'smarthome': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🏡 Smart Home & IoT</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Smart home menghubungkan perangkat rumah (lampu, saklar, AC) ke jaringan agar bisa dikontrol jarak jauh.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Protokol komunikasi:</strong> Wi-Fi (mudah, butuh listrik stabil), Zigbee & Z-Wave (hemat daya, mesh network, jangkauan lebih luas).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Hub/Gateway:</strong> jembatan yang menghubungkan berbagai perangkat berbeda protokol ke satu aplikasi kontrol.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Integrasi dengan Google Home/Alexa memungkinkan kontrol perangkat hanya dengan perintah suara.</p>',
+
+  'telepon': '<span class="badge badge-teal" style="margin-bottom:16px">Pemula</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">☎️ Sistem Telekomunikasi</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">PABX:</strong> sistem sentral telepon internal yang menghubungkan banyak ekstensi dalam satu gedung/kantor.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Fiber optic:</strong> kabel berbasis cahaya yang mampu mengirim data jarak jauh dengan kecepatan sangat tinggi, minim interferensi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Kabel UTP & Patch Panel:</strong> dasar jaringan data gedung — patch panel menjadi titik terminasi rapi sebelum disambungkan ke switch.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Structured cabling adalah perencanaan jalur kabel data/telepon gedung secara terstandar agar mudah ditelusuri dan dirawat.</p>',
+
+  'fire-alarm': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🚨 Fire Alarm & BAS</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Sistem Conventional:</strong> detektor dikelompokkan per zona/area, biaya lebih murah namun lokasi titik kebakaran kurang spesifik.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Sistem Addressable:</strong> setiap detektor punya alamat unik sehingga lokasi titik bahaya bisa diketahui presisi dari panel kontrol.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">BAS (Building Automation System):</strong> sistem terpadu yang mengontrol HVAC, lighting, dan keamanan gedung secara otomatis dan terjadwal.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Integrasi fire alarm dengan BAS memungkinkan tindakan otomatis seperti mematikan AC & membuka jalur evakuasi saat alarm aktif.</p>',
+
+  'vfd-motor': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🌀 VFD & Kontrol Motor</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">VFD (Variable Frequency Drive)</strong> mengatur kecepatan motor AC dengan mengubah frekuensi & tegangan suplai listriknya.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Manfaat utama: menghemat energi, memperhalus start/stop motor, dan memperpanjang umur mekanik motor & beban.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">PID Control:</strong> metode kendali otomatis yang menyesuaikan output secara terus-menerus agar mendekati nilai target (setpoint).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Bandingkan dengan starter bintang-segitiga otomatis yang lebih murah namun tidak bisa mengatur kecepatan secara kontinu.</p>',
+
+  'panel-mcc': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🏗️ Panel MCC & Power Distribution</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">MCC (Motor Control Center)</strong> adalah kumpulan panel kontrol motor dalam satu lemari panel terpusat di industri/pabrik.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Busbar:</strong> batang konduktor utama yang membagikan daya dari sumber ke setiap feeder/cabang beban.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">CT/PT (Current/Potential Transformer):</strong> menurunkan nilai arus/tegangan besar agar bisa diukur alat ukur standar dengan aman.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Koordinasi MCB–MCCB–ACB memastikan sistem proteksi bertingkat bekerja sesuai urutan saat terjadi gangguan.</p>',
+
+  'solar': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">☀️ Instalasi Panel Surya</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">PLTS On-Grid:</strong> tetap terhubung jaringan PLN, kelebihan energi bisa diekspor (net-metering).</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">PLTS Off-Grid:</strong> berdiri sendiri dengan baterai penyimpan, cocok untuk lokasi terpencil tanpa jaringan listrik.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Inverter string vs mikro:</strong> string inverter mengubah DC ke AC untuk satu rangkaian panel besar; mikro inverter dipasang per-panel untuk efisiensi lebih presisi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Sizing panel & baterai dihitung dari kebutuhan energi harian rumah/gedung dan rata-rata jam matahari efektif di lokasi.</p>',
+
+  'hvac-elektrikal': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">❄️ Elektrikal HVAC & Chiller</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Sisi elektrikal HVAC mencakup wiring kompresor, kontrol kecepatan kipas, dan sistem pengaman motor.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Chiller Plant:</strong> sistem pendingin skala besar untuk gedung, melibatkan pompa, cooling tower, dan kontrol suhu otomatis.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">BMS/DDC (Direct Digital Control):</strong> mengatur suhu ruangan otomatis berdasarkan sensor & jadwal operasional gedung.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Perawatan elektrikal HVAC rutin penting untuk mencegah motor kompresor overheat dan boros listrik.</p>',
+
+  'k3-tegangan': '<span class="badge badge-coral" style="margin-bottom:16px">Wajib + Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">⚠️ Pekerjaan Tegangan Tinggi</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Pekerjaan di jaringan 20kV ke atas membutuhkan <strong style="color:var(--text-main)">Surat Izin Kerja Khusus</strong> dan koordinasi resmi dengan PLN.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">APD khusus:</strong> sarung tangan & sepatu isolasi tegangan tinggi, tongkat/stick pengukur jarak aman, pakaian arc-flash rated.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">LOTO pada tegangan tinggi wajib melibatkan lebih dari satu petugas dan verifikasi ganda sebelum area dinyatakan aman.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Topik ini hanya boleh dikerjakan oleh teknisi bersertifikasi khusus tegangan tinggi — bukan untuk pemula.</p>',
+
+  'autocad-elektrikal': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📐 AutoCAD Electrical</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Versi AutoCAD khusus untuk menggambar <strong style="color:var(--text-main)">wiring diagram, schematic,</strong> dan layout panel kelistrikan.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Memiliki pustaka simbol standar IEC/NEMA siap pakai, sehingga gambar lebih cepat dan konsisten antar proyek.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Fitur BOM (Bill of Materials) otomatis membantu menghitung daftar komponen dari gambar yang sudah dibuat.</p>',
+
+  'eplan': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">⚙️ EPLAN Electric P8</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Perangkat lunak desain elektrikal standar industri Eropa, banyak dipakai pabrikan panel & mesin otomasi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Mendukung desain berbasis database, sehingga perubahan satu komponen otomatis memperbarui seluruh dokumen terkait.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Sangat dicari di pabrik berskala besar yang membutuhkan dokumentasi elektrikal presisi tinggi & terstandarisasi global.</p>',
+
+  'etap': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📊 ETAP (Power System Analysis)</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">ETAP dipakai untuk mensimulasikan sistem tenaga listrik sebelum benar-benar dibangun di lapangan.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Load flow:</strong> analisis aliran daya untuk memastikan kapasitas kabel & trafo memadai.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Short circuit & arc flash:</strong> menghitung potensi arus hubung singkat agar pemilihan pengaman tepat dan aman bagi pekerja.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Koordinasi relay proteksi memastikan pemutus terdekat dengan gangguan yang bekerja lebih dulu.</p>',
+
+  'dialux': '<span class="badge badge-amber" style="margin-bottom:16px">Tingkat Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">💡 DIALux & Relux</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Software gratis untuk merencanakan sistem pencahayaan ruangan/bangunan secara presisi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">Lux level:</strong> satuan intensitas cahaya yang diterima permukaan kerja — setiap jenis ruangan punya standar minimumnya sendiri.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Hasil simulasi membantu menentukan jumlah & tata letak titik lampu paling efisien sebelum instalasi nyata dilakukan.</p>',
+
+  'tia-portal': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🔧 TIA Portal (Siemens)</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Software resmi Siemens untuk memprogram PLC seri S7-1200/1500 dan mengonfigurasi HMI dalam satu platform terpadu.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Mendukung jaringan PROFINET untuk komunikasi antar perangkat industri dengan kecepatan tinggi.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Fitur Safety PLC bawaan memungkinkan pemrograman fungsi keselamatan mesin sesuai standar industri.</p>',
+
+  'cx-programmer': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🖥️ CX-Programmer (Omron)</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Software pemrograman resmi untuk PLC Omron seri CP & CJ, populer di banyak lini produksi manufaktur.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Mendukung bahasa ladder & FBD, mirip prinsip dasarnya dengan PLC merek lain meski tampilan software berbeda.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Komunikasi via Modbus/EtherNet-IP memungkinkan PLC Omron terintegrasi dengan perangkat dari vendor lain.</p>',
+
+  'labview': '<span class="badge badge-coral" style="margin-bottom:16px">Level Lanjutan</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">📈 LabVIEW & NI DAQ</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">LabVIEW memakai pemrograman berbasis blok visual (graphical programming), bukan baris kode teks seperti bahasa pada umumnya.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px"><strong style="color:var(--text-main)">DAQ (Data Acquisition):</strong> perangkat National Instruments untuk mengakuisisi data sensor secara real-time ke komputer.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Banyak dipakai di dunia riset & pengujian instrumen, karena cepat untuk membuat instrumen virtual (Virtual Instrument).</p>',
+
+  'proteus': '<span class="badge badge-teal" style="margin-bottom:16px">Pemula – Menengah</span><h2 style="font-size:1.2rem;font-weight:900;margin-bottom:16px">🔬 Proteus & Multisim</h2><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Software simulasi rangkaian elektronika yang memungkinkan uji coba sirkuit tanpa komponen fisik terlebih dahulu.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8;margin-bottom:12px">Sangat membantu pemula belajar elektronika & mikrokontroler (termasuk simulasi Arduino) sebelum praktik hardware asli.</p><p style="font-size:.88rem;color:var(--text-sub);line-height:1.8">Mendukung juga desain PCB (Printed Circuit Board) dari skematik yang sudah disimulasikan dan terverifikasi bekerja.</p>'
+};
+
+function showMateri(id) {
+  const modal = document.getElementById('modal-materi');
+  const content = document.getElementById('modal-content');
+  content.innerHTML = materiContent[id] || `<h2 style="font-size:1.1rem;font-weight:900;margin-bottom:12px">Materi Segera Hadir</h2><p style="color:var(--text-sub);font-size:.88rem">Konten untuk topik ini sedang disiapkan oleh tim instruktur bersertifikasi kami.</p>`;
+  modal.style.display = 'flex';
+}
+function tutupModal() { document.getElementById('modal-materi').style.display = 'none'; }
+
+// ---- DASHBOARD CAROUSEL ----
+function initCarousel() {
+  const dots = document.getElementById('carousel-dots');
+  if(dots.childElementCount > 0) return;
+  for(let i=0;i<CAROUSEL_TOTAL;i++) {
+    const d = document.createElement('div');
+    d.style.cssText = `width:${i===0?'20px':'8px'};height:8px;border-radius:4px;background:${i===0?'#fff':'rgba(255,255,255,.4)'};transition:all .3s;cursor:pointer`;
+    d.onclick = () => carouselTo(i);
+    dots.appendChild(d);
+  }
+}
+function carouselMove(dir) {
+  carouselIdx = (carouselIdx + dir + CAROUSEL_TOTAL) % CAROUSEL_TOTAL;
+  document.getElementById('carousel-track').style.transform = `translateX(-${carouselIdx*100}%)`;
+  Array.from(document.getElementById('carousel-dots').children).forEach((d,i) => {
+    d.style.width = i===carouselIdx?'20px':'8px';
+    d.style.background = i===carouselIdx?'#fff':'rgba(255,255,255,.4)';
+  });
+}
+function carouselTo(i) { carouselIdx = i - 1; carouselMove(1); }
+
+// INIT
+pilihTes('dasar-listrik');
+renderTeknisi('semua');
+</script>
+
+<!-- FLOATING CTA: PILIH TEKNISI -->
+<button id="fab-cta" onclick="goToTeknisi()">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.3.38-.43.51-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.38-.24.64-.14.26.1 1.66.78 1.95.93.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/></svg>
+  Pilih Teknisi
+</button>
+
+</body>
+</html>
